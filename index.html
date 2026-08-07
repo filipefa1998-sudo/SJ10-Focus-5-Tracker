@@ -22,7 +22,7 @@
     <script src="https://cdn.tailwindcss.com"></script>
     <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.umd.min.js"></script>
     <style>
-        @import url('https://fonts.googleapis.com/css2?family=Manrope:wght@300;400;500;600;700;800&family=Playfair+Display:wght@400;500;600;700;800;900&display=swap');
+        @import url('https://fonts.googleapis.com/css2?family=Manrope:wght@300;400;500;600;700;800&family=Fraunces:opsz,wght@9..144,300;9..144,400;9..144,500;9..144,600;9..144,700&display=swap');
         * { font-family: 'Manrope', -apple-system, BlinkMacSystemFont, sans-serif; }
 
         /* ─────────── PACIFIC NOIR — design tokens (matches Unga ministering deck) ─────────── */
@@ -37,19 +37,20 @@
             --ss-violet:#c4a6f7; --ss-violet-wash:rgba(168,120,247,.16);
             --ss-bar:#1b2a52; --ss-bar-text:#f6dfa6;
         }
-        .dark-mode {
-            --ss-ink:#f7f0e6; --ss-ink-soft:#d8cfbf;
-            --ss-bg:#0a1224; --ss-surface:#152144; --ss-surface-2:#101a38;
-            --ss-line:rgba(231,189,106,.28); --ss-line-2:rgba(244,236,224,.12);
-            --ss-muted:#aaa090;
-            --ss-gold:#edc878; --ss-gold-deep:#f6dfa6; --ss-gold-wash:rgba(231,189,106,.18);
-            --ss-red:#ed9aa9; --ss-red-wash:rgba(217,106,122,.20);
-            --ss-sage:#8fdca0; --ss-sage-wash:rgba(120,200,140,.18);
-            --ss-violet:#c4a6f7; --ss-violet-wash:rgba(168,120,247,.18);
-            --ss-bar:#16234a; --ss-bar-text:#f6dfa6;
+        /* ── LIGHT THEME (Sacred Stone) — dark is the default; this flips the palette ── */
+        html[data-theme="light"] {
+            --ss-ink:#15213d; --ss-ink-soft:#3f4d6b;
+            --ss-bg:#f4f1ea; --ss-surface:#fffdf8; --ss-surface-2:#f7f2e8;
+            --ss-line:rgba(176,138,58,.30); --ss-line-2:rgba(13,23,48,.09);
+            --ss-muted:#6c768e;
+            --ss-gold:#b6892f; --ss-gold-deep:#936c1f; --ss-gold-wash:rgba(176,138,58,.14);
+            --ss-red:#c4566a; --ss-red-wash:rgba(196,86,106,.12);
+            --ss-sage:#3f9d6b; --ss-sage-wash:rgba(63,157,107,.12);
+            --ss-violet:#7a5bb0; --ss-violet-wash:rgba(122,91,176,.12);
+            --ss-bar:#1b2a52; --ss-bar-text:#f6dfa6; /* navy+gold accent bar kept in both modes */
         }
         body { background: var(--ss-bg) !important; color: var(--ss-ink); }
-        h1,h2,h3 { font-family:'Playfair Display', Georgia, serif !important; letter-spacing:-0.01em; color:var(--ss-ink); }
+        h1,h2,h3 { font-family:'Fraunces', Georgia, serif !important; letter-spacing:-0.01em; color:var(--ss-ink); }
 
         /* layered Pacific Noir canvas (gold + ember + sea over deep navy) + tapa lattice */
         .pn-canvas{
@@ -63,10 +64,32 @@
               radial-gradient(1300px 1000px at 50% 45%, rgba(42,84,118,.40), transparent 72%),
               linear-gradient(160deg, #0e1830 0%, #0c1426 46%, #101a32 100%) !important;
         }
+        /* Ngatu pinwheel (manulua) tapa texture, woven faintly across the canvas */
         .pn-canvas::after{
-            content:"";position:absolute;inset:0;opacity:.08;pointer-events:none;
-            background-image:url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='160' height='160' viewBox='0 0 160 160'><g fill='none' stroke='%23e7bd6a' stroke-width='1.2'><path d='M80 6 L154 80 L80 154 L6 80 Z'/><path d='M80 30 L130 80 L80 130 L30 80 Z'/><path d='M80 54 L106 80 L80 106 L54 80 Z'/><path d='M80 6 L80 154 M6 80 L154 80'/></g><g fill='none' stroke='%23e7bd6a' stroke-width='0.9'><path d='M0 0 L26 0 L0 26 Z'/><path d='M160 0 L134 0 L160 26 Z'/><path d='M0 160 L26 160 L0 134 Z'/><path d='M160 160 L134 160 L160 134 Z'/></g><circle cx='80' cy='80' r='3.4' fill='%23e7bd6a'/></svg>");
-            background-size:150px 150px;
+            content:"";position:absolute;inset:0;opacity:.05;pointer-events:none;
+            background-image:url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='80' height='80' viewBox='0 0 80 80'><g fill='%23e7bd6a'><polygon points='0,0 40,0 40,40'/><polygon points='80,0 80,40 40,40'/><polygon points='80,80 40,80 40,40'/><polygon points='0,80 0,40 40,40'/></g></svg>");
+            background-size:104px 104px;
+        }
+        /* Light-mode canvas — warm cream paper with a soft gold wash */
+        html[data-theme="light"] .pn-canvas{
+            background:
+              radial-gradient(1100px 620px at 82% -8%, rgba(176,138,58,.14), transparent 60%),
+              radial-gradient(900px 700px at 8% 108%, rgba(60,90,160,.10), transparent 60%),
+              linear-gradient(168deg, #efe9dc 0%, #f4f1ea 60%, #faf7f0 100%) !important;
+        }
+        html[data-theme="light"] .pn-canvas::after{
+            opacity:.045;
+            background-image:url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='80' height='80' viewBox='0 0 80 80'><g fill='%2315213d'><polygon points='0,0 40,0 40,40'/><polygon points='80,0 80,40 40,40'/><polygon points='80,80 40,80 40,40'/><polygon points='0,80 0,40 40,40'/></g></svg>");
+        }
+
+        /* ── Ngatu band: a woven tapa divider (matches the EQ lessons app) ── */
+        .ngatu-band{
+            height:16px;width:100%;border-top:1.5px solid var(--ss-gold);border-bottom:1.5px solid var(--ss-gold);
+            background:var(--ss-surface-2) url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='32' height='32' viewBox='0 0 32 32'><g fill='%23b6892f'><polygon points='0,0 16,0 16,16'/><polygon points='32,0 32,16 16,16'/><polygon points='32,32 16,32 16,16'/><polygon points='0,32 0,16 16,16'/></g></svg>");
+            background-repeat:repeat-x;background-position:center;background-size:auto 16px;border-radius:2px;
+        }
+        html:not([data-theme="light"]) .ngatu-band{
+            background-image:url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='32' height='32' viewBox='0 0 32 32'><g fill='%23edc878'><polygon points='0,0 16,0 16,16'/><polygon points='32,0 32,16 16,16'/><polygon points='32,32 16,32 16,16'/><polygon points='0,32 0,16 16,16'/></g></svg>");
         }
         /* Ngatu (tapa) overlay usable on panels */
         .ngatu-panel{ position:relative; overflow:hidden; }
@@ -76,6 +99,143 @@
             background-size:130px 130px;
         }
         .ngatu-panel > *{ position:relative; z-index:1; }
+
+        /* ── Sleek primary tab bar (numbered) ── */
+        .tabbar{ display:flex; gap:2px; overflow-x:auto; scrollbar-width:none; -ms-overflow-style:none;
+            border-bottom:1px solid var(--ss-line-2); padding:0 2px; }
+        .tabbar::-webkit-scrollbar{ display:none; }
+        .tabchip{ flex:0 0 auto; display:flex; align-items:center; gap:9px; background:transparent; border:0;
+            color:var(--ss-muted); padding:13px 16px 12px; font-weight:700; font-size:13.5px; letter-spacing:.005em;
+            white-space:nowrap; cursor:pointer; border-bottom:2.5px solid transparent; transition:color .15s, border-color .15s;
+            font-family:'Manrope',sans-serif; }
+        .tabchip:hover{ color:var(--ss-ink); }
+        .tabchip .tn{ font-family:'Fraunces',Georgia,serif; font-style:italic; font-size:12px; color:var(--ss-muted); opacity:.8; }
+        .tabchip .tic{ font-size:15px; line-height:1; }
+        .tabchip[aria-selected="true"]{ color:var(--ss-ink); border-bottom-color:var(--ss-gold); }
+        .tabchip[aria-selected="true"] .tn{ color:var(--ss-gold); opacity:1; }
+        .tabchip .tbadge{ font-family:'Manrope'; font-style:normal; font-size:10.5px; font-weight:800; line-height:1;
+            background:var(--ss-gold-wash); color:var(--ss-gold); border:1px solid var(--ss-line); border-radius:999px; padding:3px 6px; }
+        @media(max-width:640px){ .tabchip{ padding:11px 12px 10px; font-size:12.5px; gap:7px; } .tabchip .tn{ font-size:11px; } }
+
+        /* ── Compact segmented scope toggle (Investigators / Returning) ── */
+        .seg{ display:inline-flex; padding:3px; gap:3px; background:var(--ss-surface-2); border:1px solid var(--ss-line-2);
+            border-radius:12px; }
+        .seg button{ display:flex; align-items:center; gap:6px; border:0; background:transparent; cursor:pointer;
+            color:var(--ss-muted); font-weight:700; font-size:13px; padding:8px 14px; border-radius:9px; transition:.15s;
+            font-family:'Manrope',sans-serif; white-space:nowrap; }
+        .seg button .cnt{ font-size:11px; font-weight:700; opacity:.7; }
+        .seg button[aria-pressed="true"]{ background:linear-gradient(135deg,var(--ss-gold),var(--ss-gold-deep));
+            color:#1a1206; box-shadow:0 4px 14px rgba(231,189,106,.28); }
+        .seg button[aria-pressed="true"] .cnt{ opacity:.85; }
+
+        /* ── Quiet icon buttons in the header utility row ── */
+        .iconbtn{ display:inline-flex; align-items:center; justify-content:center; gap:6px;
+            width:auto; min-width:40px; height:40px; padding:0 11px; border-radius:11px; cursor:pointer;
+            background:var(--ss-surface-2); border:1px solid var(--ss-line-2); color:var(--ss-ink-soft);
+            font-size:14px; font-weight:700; transition:.15s; font-family:'Manrope',sans-serif; }
+        .iconbtn:hover{ border-color:var(--ss-line); color:var(--ss-ink); }
+        .iconbtn.gold{ background:linear-gradient(135deg,var(--ss-gold),var(--ss-gold-deep)); color:#1a1206; border-color:var(--ss-gold-deep); }
+
+        /* ── Image slots (uploadable, shared via Firebase) ── */
+        .imgslot{ position:relative; display:block; width:100%; border-radius:16px; overflow:hidden; margin-bottom:16px;
+            border:1px solid var(--ss-line); box-shadow:0 10px 30px rgba(0,0,0,.12); background:var(--ss-surface-2); }
+        .imgslot img{ display:block; width:auto; max-width:100%; height:auto; max-height:520px; margin:0 auto; }
+        .imgslot.empty{ display:flex; flex-direction:column; align-items:center; justify-content:center; gap:6px;
+            min-height:190px; border:2px dashed var(--ss-line); box-shadow:none; background:var(--ss-surface-2);
+            cursor:pointer; text-align:center; padding:24px; transition:.15s; }
+        .imgslot.empty:hover{ border-color:var(--ss-gold); background:var(--ss-gold-wash); }
+        .imgslot-ico{ font-size:30px; }
+        .imgslot-label{ font-weight:800; color:var(--ss-ink-soft); font-size:14px; }
+        .imgslot-hint{ font-size:11.5px; color:var(--ss-muted); }
+        .imgslot-tools{ position:absolute; top:10px; right:10px; display:flex; gap:6px; opacity:0; transition:.15s; }
+        .imgslot:hover .imgslot-tools{ opacity:1; }
+        .imgbtn{ display:inline-flex; align-items:center; justify-content:center; width:34px; height:34px; border-radius:9px;
+            background:rgba(15,20,40,.62); color:#fff; border:0; cursor:pointer; font-size:14px; }
+        .imgbtn:hover{ background:rgba(15,20,40,.88); }
+        @media(hover:none){ .imgslot-tools{ opacity:.92; } }
+
+        /* 21-Day Promise: portrait sits INSIDE the intro card (WJ8 layout) */
+        .promise-intro.has-side{ display:flex; gap:22px; align-items:center; }
+        .promise-intro.has-side .pi-text{ flex:1; min-width:0; }
+        .promise-intro.has-side .pi-side{ flex:0 0 36%; max-width:270px; min-width:0; }
+        .promise-intro.has-side .pi-side .imgslot{ margin-bottom:0; }
+        .promise-intro.has-side .pi-side .imgslot img{ width:100%; max-height:360px; object-fit:cover; }
+        .promise-intro.has-side .pi-side .imgslot.empty{ min-height:200px; }
+        @media(max-width:640px){
+            .promise-intro.has-side{ flex-direction:column; align-items:stretch; }
+            .promise-intro.has-side .pi-side{ flex:none; max-width:none; width:100%; }
+        }
+
+        /* ── Shared panel + section heads for new tabs ── */
+        .ss-panel{ background:var(--ss-surface); border:1px solid var(--ss-line); border-radius:18px;
+            box-shadow:0 14px 40px rgba(0,0,0,.18); padding:22px; }
+        .ss-eyebrow{ font-size:11px; letter-spacing:.26em; text-transform:uppercase; color:var(--ss-gold); font-weight:700; }
+        .ss-h2{ font-family:'Fraunces',Georgia,serif; font-size:clamp(22px,5vw,30px); color:var(--ss-ink); margin:6px 0 0; }
+        .ss-blockhead{ display:flex; align-items:baseline; gap:10px; flex-wrap:wrap; margin:26px 0 12px; }
+        .ss-blockhead h3{ font-family:'Fraunces',Georgia,serif; font-size:19px; color:var(--ss-ink); margin:0; }
+        .ss-blockhead .en{ font-size:13px; color:var(--ss-muted); }
+        .ss-input{ width:100%; min-width:0; background:var(--ss-surface-2); border:1px solid var(--ss-line-2);
+            color:var(--ss-ink); border-radius:11px; padding:11px 13px; font-size:14px; font-family:'Manrope',sans-serif; }
+        .ss-input:focus{ outline:none; border-color:var(--ss-gold); }
+
+        /* 21-Day Promise */
+        .promise-intro{ padding:22px; border-radius:16px; border:1px solid var(--ss-line);
+            background:radial-gradient(600px 300px at 90% -40%,var(--ss-gold-wash),transparent 60%), var(--ss-surface-2); }
+        .promise-intro .formula{ font-family:'Fraunces',Georgia,serif; font-size:clamp(16px,4.4vw,22px); color:var(--ss-gold-deep); letter-spacing:.02em; }
+        .promise-intro p{ font-size:14.5px; color:var(--ss-ink-soft); margin:14px 0 0; max-width:66ch; line-height:1.6; }
+        .promise-intro p .en{ display:block; color:var(--ss-muted); font-size:13px; margin-top:8px; }
+        .promise-intro .vref{ margin-top:14px; font-style:italic; font-family:'Fraunces',Georgia,serif; color:var(--ss-gold); font-size:14px; }
+        .promise-progress{ display:flex; align-items:center; gap:14px; margin:16px 0; padding:14px 18px; border-radius:14px;
+            border:1px solid var(--ss-line); background:var(--ss-surface-2); }
+        .promise-progress .big{ font-family:'Fraunces',Georgia,serif; font-size:28px; color:var(--ss-gold-deep); font-variant-numeric:tabular-nums; }
+        .promise-progress .lbl{ font-size:12px; color:var(--ss-muted); }
+        .promise-progress .pbar{ flex:1; height:9px; border-radius:999px; background:var(--ss-surface); overflow:hidden; border:1px solid var(--ss-line-2); }
+        .promise-progress .pbar > i{ display:block; height:100%; width:0; background:linear-gradient(90deg,var(--ss-gold),var(--ss-gold-deep)); transition:width .5s; }
+        .prayfor{ display:grid; gap:8px; }
+        .prayfor.two{ grid-template-columns:repeat(auto-fit,minmax(240px,1fr)); align-items:start; }
+        .praygroup-title{ font-size:11.5px; font-weight:800; color:var(--ss-muted); text-transform:uppercase; letter-spacing:.09em; margin:0 0 8px; display:flex; align-items:center; gap:7px; }
+        .praygroup-title .n{ color:var(--ss-gold); }
+        .prayname{ display:flex; align-items:center; gap:10px; padding:10px 13px; border:1px solid var(--ss-line-2); border-radius:11px; background:var(--ss-surface-2); font-size:14.5px; font-weight:600; color:var(--ss-ink); margin-bottom:7px; }
+        .prayname .dot{ width:8px; height:8px; border-radius:999px; flex:0 0 auto; }
+        .praynote{ font-size:13px; color:var(--ss-muted); padding:10px 13px; border:1px dashed var(--ss-line); border-radius:11px; }
+        .daygrid{ display:grid; gap:8px; }
+        .dayrow{ display:grid; grid-template-columns:46px 1fr; gap:10px; align-items:stretch; border:1px solid var(--ss-line-2);
+            border-radius:12px; background:var(--ss-surface-2); overflow:hidden; }
+        .dayrow.full{ border-color:var(--ss-sage); background:var(--ss-sage-wash); }
+        .daynum{ display:flex; align-items:center; justify-content:center; font-family:'Fraunces',Georgia,serif; font-size:20px;
+            font-weight:700; color:var(--ss-gold); background:var(--ss-surface); border-right:1px solid var(--ss-line-2); }
+        .dayrow.full .daynum{ color:var(--ss-sage); }
+        .daymain{ padding:11px 13px; display:flex; flex-wrap:wrap; align-items:center; gap:10px 16px; }
+        .scrip{ flex:1 1 160px; min-width:0; }
+        .scrip a{ font-weight:700; font-size:15px; color:var(--ss-ink); text-decoration:none; }
+        .scrip a:hover{ color:var(--ss-gold); }
+        .scrip .sub{ font-size:11px; color:var(--ss-muted); }
+        .checks{ display:flex; gap:14px; flex:0 0 auto; }
+        .chk{ display:flex; align-items:center; gap:7px; font-size:12px; color:var(--ss-muted); font-weight:600; cursor:pointer; }
+        .chk input{ width:19px; height:19px; accent-color:var(--ss-gold); }
+        .chk.read input{ accent-color:var(--ss-sage); }
+        .commit{ display:flex; align-items:flex-start; gap:11px; padding:13px 15px; border-radius:11px; border:1px solid var(--ss-line-2); background:var(--ss-surface-2); margin-bottom:8px; cursor:pointer; }
+        .commit input{ flex:0 0 auto; width:20px; height:20px; margin-top:1px; accent-color:var(--ss-gold); }
+        .commit .txt{ font-size:14.5px; color:var(--ss-ink); }
+        .commit .txt .en{ display:block; color:var(--ss-muted); font-size:13px; margin-top:3px; }
+        .contacts{ display:grid; grid-template-columns:repeat(auto-fill,minmax(260px,1fr)); gap:10px; }
+        .contact{ display:grid; grid-template-columns:1fr 130px; gap:8px; }
+
+        /* Book of Mormon Challenge */
+        .bom-hero{ display:grid; grid-template-columns:repeat(auto-fit,minmax(160px,1fr)); gap:12px; margin-bottom:8px; }
+        .bom-stat{ padding:16px 18px; border-radius:14px; border:1px solid var(--ss-line); background:var(--ss-surface-2); }
+        .bom-stat .num{ font-family:'Fraunces',Georgia,serif; font-size:30px; color:var(--ss-gold-deep); line-height:1; font-variant-numeric:tabular-nums; }
+        .bom-stat .lbl{ font-size:12px; color:var(--ss-muted); margin-top:6px; }
+        .bom-card{ border:1px solid var(--ss-line-2); border-radius:14px; background:var(--ss-surface-2); padding:14px 16px; display:flex; flex-direction:column; gap:10px; }
+        .bom-card .bom-top{ display:flex; align-items:center; gap:10px; }
+        .bom-card .flame{ font-size:22px; flex:0 0 auto; }
+        .bom-status{ display:inline-flex; align-items:center; gap:6px; font-size:11.5px; font-weight:800; padding:5px 10px; border-radius:999px; cursor:pointer; border:1px solid var(--ss-line); white-space:nowrap; }
+        .bom-grid{ display:grid; grid-template-columns:repeat(auto-fill,minmax(280px,1fr)); gap:12px; }
+        .ss-btn{ display:inline-flex; align-items:center; gap:8px; border:0; cursor:pointer; font-family:'Manrope',sans-serif;
+            font-weight:700; font-size:14px; padding:11px 18px; border-radius:12px; transition:.15s; }
+        .ss-btn.primary{ background:linear-gradient(135deg,var(--ss-gold),var(--ss-gold-deep)); color:#1a1206; }
+        .ss-btn.ghost{ background:var(--ss-surface-2); color:var(--ss-ink-soft); border:1px solid var(--ss-line-2); }
+        @media(max-width:560px){ .contact{ grid-template-columns:1fr; } .checks{ gap:10px; } .ss-panel{ padding:16px; } }
 
         /* surfaces -> dark glass panels */
         [class~="bg-white"],[class~="bg-white/90"],[class~="bg-white/95"],[class~="bg-white/98"],[class~="bg-gray-50"]{ background-color:var(--ss-surface)!important; }
@@ -90,9 +250,11 @@
 
         /* flatten gradients, re-solid by family using the Noir palette */
         [class*="bg-gradient"]:not(.pn-canvas){ background-image:none!important; }
-        [class~="from-amber-500"],[class~="from-amber-600"],[class~="from-green-500"],[class~="from-green-600"],[class~="from-indigo-500"],[class~="from-indigo-600"],[class~="from-purple-600"],[class~="from-orange-500"],[class~="from-yellow-400"],[class~="from-teal-600"],[class~="from-blue-600"]{ background-color:var(--ss-bar)!important; color:var(--ss-bar-text)!important; border-color:var(--ss-line)!important; }
+        [class~="from-amber-500"],[class~="from-amber-600"],[class~="from-green-500"],[class~="from-green-600"],[class~="from-indigo-500"],[class~="from-indigo-600"],[class~="from-purple-600"],[class~="from-orange-500"],[class~="from-yellow-400"],[class~="from-teal-500"],[class~="from-teal-600"],[class~="from-blue-600"],[class~="from-pink-500"],[class~="from-cyan-500"],[class~="from-cyan-600"]{ background-color:var(--ss-bar)!important; color:var(--ss-bar-text)!important; border-color:var(--ss-line)!important; }
         [class~="from-rose-600"],[class~="from-red-500"],[class~="from-red-600"]{ background-color:rgba(217,106,122,.18)!important; color:var(--ss-red)!important; border-color:var(--ss-line)!important; }
         [class~="from-emerald-500"]{ background-color:var(--ss-sage-wash)!important; color:var(--ss-sage)!important; }
+        /* Immersive dark cards (Action Board header, Covenant Path Dashboard) — keep dark so white text stays readable in light mode */
+        [class~="from-violet-700"],[class~="from-purple-700"],[class~="from-purple-900"],[class~="from-indigo-700"],[class~="from-indigo-800"],[class~="from-indigo-900"]{ background-color:#221a47!important; color:#fff!important; }
         [class~="from-gray-50"]{ background-color:var(--ss-surface-2)!important; }
 
         /* text */
@@ -176,23 +338,42 @@
             #printReport { display: block !important; }
         }
     </style>
+    <script>
+        /* Apply saved theme before paint to avoid a flash. Dark is the default. */
+        (function(){
+            try{
+                var saved = localStorage.getItem('f5Theme');
+                if(saved === 'light'){ document.documentElement.setAttribute('data-theme','light'); }
+            }catch(e){}
+        })();
+    </script>
 </head>
-<body class="bg-gray-900">
+<body>
     <div id="app"></div>
 
     <script type="module">
         import { initializeApp } from 'https://www.gstatic.com/firebasejs/10.7.1/firebase-app.js';
         import { getDatabase, ref, set, onValue } from 'https://www.gstatic.com/firebasejs/10.7.1/firebase-database.js';
+        import { getStorage, ref as storageRef, uploadString, getDownloadURL, deleteObject } from 'https://www.gstatic.com/firebasejs/10.7.1/firebase-storage.js';
 
         const firebaseConfig = {
             apiKey: "AIzaSyBggWHSDbUpwmM-OTujBSkLehoGIm6rDN0",
             authDomain: "sj10-focus-5-tracker.firebaseapp.com",
             databaseURL: "https://sj10-focus-5-tracker-default-rtdb.firebaseio.com",
-            projectId: "sj10-focus-5-tracker"
+            projectId: "sj10-focus-5-tracker",
+            // ⚠️ Confirm this matches your Firebase console → Storage (the gs:// bucket).
+            // Newer projects use "sj10-focus-5-tracker.firebasestorage.app" instead of ".appspot.com".
+            storageBucket: "sj10-focus-5-tracker.appspot.com"
         };
 
         const app = initializeApp(firebaseConfig);
         const database = getDatabase(app);
+        // Firebase Storage requires the paid Blaze plan. Leaving this OFF keeps the app fully
+        // on the free Spark plan — photos are compressed and stored inline in the database.
+        // Only set this to true AFTER you've upgraded the project to Blaze and enabled Storage.
+        const USE_STORAGE = false;
+        let storage = null;
+        try { if (USE_STORAGE) storage = getStorage(app); } catch(e){ storage = null; }
 
         const MONTHS = ['JAN', 'FEB', 'MAR', 'APR', 'MAY', 'JUN', 'JUL', 'AUG', 'SEP', 'OCT', 'NOV', 'DEC'];
 
@@ -246,6 +427,7 @@
             'Primary': { to: 'Pālaimeli' },
             'Sunday School': { to: 'Ako Sāpate' },
             'Young Single Adult': { to: 'Talavou Nofo Taha' },
+            'YSA': { to: 'Talavou Nofo Taha' },
             // Month view cell text
             '✏️ Edit Activities': { to: '✏️ Tohi Ngāue' },
             '➕ Log Activities': { to: '➕ Līpooti Ngāue' },
@@ -558,12 +740,61 @@
             'Go to Monthly Tracker': { to: 'ʻAlu ki he Tracker Māhina' },
             'Add contacts in the Monthly Tracker first, then assign tasks to them here.': { to: 'Tānaki kakai ʻi he Tracker Māhina ʻuluaki, pea vahevahe ngāue kiate kinautolu ʻi heni.' },
             'Assign a task to an existing contact. Add new contacts in the Monthly Tracker.': { to: 'Vahe ha ngāue ki ha kakai ʻoku ʻi ai. Tānaki kakai foʻou ʻi he Tracker Māhina.' },
+            // New tab labels + utilities
+            'Monthly Tracker': { to: 'Tracker Māhina' },
+            'This Week': { to: 'Uike Ní' },
+            'Action Board': { to: 'Palanga Ngāue' },
+            'KPI Dashboard': { to: 'Tapuleti KPI' },
+            'Ward Calendar': { to: 'Kalena ʻo e Uōti' },
+            '21-Day Promise': { to: 'Palōmesi ʻAho ʻe 21' },
+            'Book of Mormon Challenge': { to: 'Pole Tohi ʻa Molomona' },
+            'Scope': { to: 'Faʻahinga' },
+            'Save': { to: 'Tauhi' },
+            'Ward Council Report': { to: 'Lipoti Fakataha Uōti' },
+            'Toggle theme': { to: 'Liliu ʻa e lanu' },
+            'Background': { to: 'Tumutumu' },
+            'Export': { to: 'ʻAve' },
+            'Import': { to: 'ʻOmi' },
+            // 21-day field labels
+            'Name…': { to: 'Hingoa…' },
+            'Book of Mormon': { to: 'Tohi ʻa Molomona' },
+            'AM': { to: 'Pongipongi' },
+            'PM': { to: 'Efiafi' },
+            'Read': { to: 'Lau' },
+            'Full-time missionary': { to: 'Faifekau Taimi Kakato' },
+            'Phone': { to: 'Fika telefoni' },
+            'Ward mission leader': { to: 'Taki Faifekau Fakauōti' },
+            // BoM challenge labels
+            'Who took the challenge?': { to: 'Ko hai naʻe toʻo ʻa e polé?' },
+            'Tap to advance': { to: 'Tā ke laka kī muʻa' },
+            'Giving it to… (optional)': { to: 'Foaki ki…' },
+            'A line of testimony to write inside…': { to: 'Ha laine fakamoʻoni ke tohi ʻi loto…' },
+            'Week of': { to: 'Uike ʻo' },
+            'Remove': { to: 'Toʻo' },
+            'Take the challenge': { to: 'Toʻo ʻa e Pole' },
+            'Pledged this week': { to: 'Toʻo he uike ní' },
+            'Copies given away': { to: 'Tohi kuo foaki' },
+            'Referred to missionaries': { to: 'ʻAve ki he Faifekau' },
+            'No one has taken the challenge yet.': { to: 'ʻOku teʻeki ke toʻo ʻe ha taha ʻa e polé.' },
+            'Tap "Take the challenge" to light the first candle.': { to: 'Tā "Toʻo ʻa e Pole" ke tutu ʻa e ʻuluaki maamá.' },
+            'Name of the person': { to: 'Hingoa ʻo e tokotahá' },
+            'Organization to follow up…': { to: 'Kautaha ke muimuiʻi…' },
+            // Image slots
+            'Add a photo': { to: 'Tānaki ha foto' },
+            'Tap to upload · shared with everyone': { to: 'Tā ke ʻuploadi · vahevahe mo e kakai kotoa' },
+            'Change image': { to: 'Liliu ʻa e foto' },
+            'Remove image': { to: 'Toʻo ʻa e foto' },
+            'Remove this image?': { to: 'Toʻo ʻa e foto ko ʻení?' },
+            'Please choose an image file.': { to: 'Kātaki ʻo fili ha faile foto.' },
+            'Sorry — that image could not be processed.': { to: 'Fakamolemole — naʻe ʻikai lava ʻo ngāue ʻaki ʻa e fotó.' },
         };
 
         function t(key) {
             if (currentLang === 'en') return key;
             return T[key]?.to || key;
         }
+        // Inline bilingual: pass both strings, get the active language back.
+        function t2(to, en) { return currentLang === 'to' ? to : en; }
         // Renders a nav label from a full translated phrase; first word hides on small screens.
         function navLabel(key) {
             const p = t(key).split(' ');
@@ -594,6 +825,7 @@
             { code: 'ASP', name: 'Attended Service Project', toName: 'Ō ki Ngāue Tokoni', color: 'from-teal-600 to-teal-700', emoji: '💪' },
             { code: 'ACTIVE', name: 'Active Member', toName: 'Kāinga ʻOku Ngāue', color: 'from-emerald-500 to-emerald-600', emoji: '⭐' }
         ];
+        const INVITATION_CODES = ['IAC','IRB','IACA','IFHE','ITM','ITB','IFH','ISP'];
         // Unified nav-tab styling — gold when active, dark glass when not (consistent across all tabs)
         const NAV_ACTIVE = 'background:linear-gradient(135deg,#edc878,#f6dfa6);color:#1a1206;border:1px solid #f6dfa6;box-shadow:0 8px 22px rgba(231,189,106,.30);';
         const NAV_INACTIVE = 'background:rgba(255,255,255,.05);color:var(--ss-ink-soft);border:1px solid var(--ss-line-2);';
@@ -619,14 +851,23 @@
             return new Date(y, m - 1, d);   // local midnight — no timezone shift
         }
 
+        // Photo-edit lock: the whole tracker is open to everyone; only image upload/change/remove
+        // is gated behind the editor code (declared early so render can read it).
+        const EDITOR_CODE = "f524";
+        let editMode = false;
+
         let state = {
-            investigators: Array(5).fill().map((_, i) => ({ id: i + 1, name: '', notes: '', progress: {}, assignment: '', goal: '', emoji: '👤', assignedTo: '', nextContactDate: '', nextAction: '', lastContactDate: '', taskDone: false, taskDoneDate: '' })),
-            returning: Array(5).fill().map((_, i) => ({ id: i + 100, name: '', notes: '', progress: {}, assignment: '', goal: '', emoji: '💙', assignedTo: '', nextContactDate: '', nextAction: '', lastContactDate: '', taskDone: false, taskDoneDate: '' })),
+            investigators: Array(5).fill().map((_, i) => ({ id: i + 1, name: '', notes: '', progress: {}, assignment: '', goal: '', emoji: '👤', assignedTo: '', nextOrdinance: '', planLSI: '', nextContactDate: '', nextAction: '', lastContactDate: '', taskDone: false, taskDoneDate: '' })),
+            returning: Array(5).fill().map((_, i) => ({ id: i + 100, name: '', notes: '', progress: {}, assignment: '', goal: '', emoji: '💙', assignedTo: '', nextOrdinance: '', planLSI: '', nextContactDate: '', nextAction: '', lastContactDate: '', taskDone: false, taskDoneDate: '' })),
             covenantPath: [],
             events: [],
             prayerList: [],
+            bomChallenge: [],
+            promisePeople: [],
+            images: {},
             activeTab: 'investigators',
             viewMode: 'tracker',
+            chartsScope: 'active',
             saveMessage: '',
             backgroundImage: 'https://images.unsplash.com/photo-1518709268805-4e9042af9f23?w=1920&q=80',
             calendarYear: new Date().getFullYear(),
@@ -644,12 +885,15 @@
             const data = snapshot.val();
             if (data) {
                 // Merge new action-planner fields into existing records that predate them
-                const mergeFields = p => ({ assignedTo: '', nextContactDate: '', nextAction: '', lastContactDate: '', taskDone: false, taskDoneDate: '', ...p });
+                const mergeFields = p => ({ assignedTo: '', nextOrdinance: '', planLSI: '', nextContactDate: '', nextAction: '', lastContactDate: '', taskDone: false, taskDoneDate: '', ...p });
                 state.investigators = (data.investigators || state.investigators).map(mergeFields);
                 state.returning = (data.returning || state.returning).map(mergeFields);
                 state.covenantPath = data.covenantPath || [];
                 state.backgroundImage = data.backgroundImage || state.backgroundImage;
                 state.prayerList = data.prayerList || [];
+                state.bomChallenge = data.bomChallenge || [];
+                state.promisePeople = data.promisePeople || [];
+                state.images = data.images || {};
                 state.darkMode = data.darkMode || false;
             }
             render();
@@ -663,6 +907,19 @@
             render();
         });
 
+        // ── Photo-edit lock (enter the code to add/replace/remove images) ──
+        window.toggleEditMode = () => {
+            if (!editMode) {
+                const code = prompt(currentLang==='to' ? 'Fakahū ʻa e fika ke liliu ʻa e ngaahi fotó:' : 'Enter the code to edit photos:');
+                if (code === null) return;
+                if (code.trim().toLowerCase() !== EDITOR_CODE) { showSaveMessage(currentLang==='to' ? '🔒 Fika hala' : '🔒 Wrong code'); return; }
+                editMode = true; showSaveMessage(currentLang==='to' ? '🔓 Kuo ava ʻa e liliu fotó' : '🔓 Photo editing unlocked');
+            } else {
+                editMode = false; showSaveMessage(currentLang==='to' ? '🔒 Kuo tāpuni ʻa e liliu fotó' : '🔒 Photo editing locked');
+            }
+            render();
+        };
+
         function saveToFirebase() {
             state.syncing = true;
             set(dataRef, {
@@ -671,6 +928,9 @@
                 covenantPath: state.covenantPath,
                 backgroundImage: state.backgroundImage,
                 prayerList: state.prayerList,
+                bomChallenge: state.bomChallenge,
+                promisePeople: state.promisePeople,
+                images: state.images,
                 darkMode: state.darkMode,
                 lastSaved: Date.now()
             }).then(() => {
@@ -716,6 +976,10 @@
             const l = getCurrentList(); setCurrentList(l.map(p => p.id === id ? { ...p, name } : p));
             debounce('name_'+id, () => saveToFirebase());
         };
+        window.updateCategory = (id, category) => {
+            const l = getCurrentList(); setCurrentList(l.map(p => p.id === id ? { ...p, category } : p));
+            saveToFirebase(); render();
+        };
         window.updateNotes = (id, notes) => {
             const l = getCurrentList(); setCurrentList(l.map(p => p.id === id ? { ...p, notes } : p));
             debounce('notes_'+id, () => saveToFirebase());
@@ -754,6 +1018,14 @@
         window.updateNextAction = (id, nextAction) => {
             const l = getCurrentList(); setCurrentList(l.map(p => p.id === id ? { ...p, nextAction } : p));
             debounce('action_'+id, () => saveToFirebase());
+        };
+        window.updateNextOrdinance = (id, nextOrdinance) => {
+            const l = getCurrentList(); setCurrentList(l.map(p => p.id === id ? { ...p, nextOrdinance } : p));
+            debounce('ord_'+id, () => saveToFirebase());
+        };
+        window.updatePlanLSI = (id, planLSI) => {
+            const l = getCurrentList(); setCurrentList(l.map(p => p.id === id ? { ...p, planLSI } : p));
+            debounce('lsi_'+id, () => saveToFirebase());
         };
         window.markContacted = (id) => {
             const today = new Date().toISOString().split('T')[0];
@@ -797,7 +1069,7 @@
         window.addPerson = () => {
             const list = getCurrentList();
             const newId = Math.max(...list.map(p => p.id), 0) + 1;
-            list.push({ id: newId, name: '', notes: '', progress: {}, assignment: '', goal: '', emoji: state.activeTab==='investigators'?'👤':'💙', assignedTo: '', nextContactDate: '', nextAction: '', lastContactDate: '', taskDone: false, taskDoneDate: '' });
+            list.push({ id: newId, name: '', notes: '', progress: {}, assignment: '', goal: '', emoji: state.activeTab==='investigators'?'👤':'💙', assignedTo: '', nextOrdinance: '', planLSI: '', nextContactDate: '', nextAction: '', lastContactDate: '', taskDone: false, taskDoneDate: '' });
             setCurrentList(list);
             saveToFirebase();
             render();
@@ -870,6 +1142,22 @@
             const thirtyDaysAgo = Date.now() - 30*24*60*60*1000;
             const needsAttentionInv = inv.filter(p=>p.name&&Object.values(p.progress||{}).flat().length===0);
             const needsAttentionRet = ret.filter(p=>p.name&&Object.values(p.progress||{}).flat().length===0);
+
+            // KPI strengths / weaknesses — year-to-date, across Non Member + Returning
+            const allTracked = [...inv, ...ret];
+            const wcIndCounts = {};
+            INDICATORS.forEach(ind => { wcIndCounts[ind.code] = 0; });
+            allTracked.forEach(p => Object.values(p.progress||{}).flat().forEach(code => { if(wcIndCounts[code] !== undefined) wcIndCounts[code]++; }));
+            const wcRanked = Object.entries(wcIndCounts).sort((a,b)=>b[1]-a[1]);
+            const wcStrong = wcRanked.filter(([,v])=>v>0).slice(0,3);
+            const wcWeak = wcRanked.filter(([,v])=>v===0).slice(0,5);
+            const wcEngaged = allTracked.filter(p=>p.name && Object.values(p.progress||{}).flat().length>0).length;
+            const wcNamedTotal = allTracked.filter(p=>p.name).length;
+            const wcEngagementRate = wcNamedTotal>0 ? Math.round((wcEngaged/wcNamedTotal)*100) : 0;
+            const wcInvAll = INVITATION_CODES.reduce((s,c)=>s+(wcIndCounts[c]||0),0);
+            const wcTodayD = new Date(); wcTodayD.setHours(0,0,0,0);
+            const wcOverdueAll = allTracked.filter(p=>p.name && p.nextContactDate && parseLocalDate(p.nextContactDate)<wcTodayD).length;
+
 
             const modal = document.createElement('div');
             modal.className = 'fixed inset-0 bg-black/80 backdrop-blur-sm flex items-center justify-center z-50 p-4';
@@ -986,6 +1274,41 @@
                                 ${state.prayerList.map(p=>`<span class="bg-indigo-100 text-indigo-700 px-3 py-1 rounded-full text-sm font-bold">${p.name}</span>`).join('')}
                             </div>
                         </div>` : ''}
+                        <div>
+                            <h3 class="font-black text-lg text-slate-800 mb-2">📈 ${t2('Mālohi mo e Tāpekia ʻo e KPI','KPI Strengths & Gaps')}</h3>
+                            <div class="grid grid-cols-2 md:grid-cols-4 gap-3 mb-3">
+                                <div class="bg-emerald-50 rounded-xl p-3 text-center border-2 border-emerald-200">
+                                    <div class="text-2xl font-black text-emerald-700">${wcEngagementRate}%</div>
+                                    <div class="text-xs font-bold text-emerald-600 mt-1">${t2('Tuʻunga Ngāue','Engagement Rate')}</div>
+                                </div>
+                                <div class="bg-blue-50 rounded-xl p-3 text-center border-2 border-blue-200">
+                                    <div class="text-2xl font-black text-blue-700">${wcInvAll}</div>
+                                    <div class="text-xs font-bold text-blue-600 mt-1">${t2('Fakaʻaʻaa Kotoa','Total Invitations')}</div>
+                                </div>
+                                <div class="bg-red-50 rounded-xl p-3 text-center border-2 border-red-200">
+                                    <div class="text-2xl font-black text-red-700">${wcOverdueAll}</div>
+                                    <div class="text-xs font-bold text-red-600 mt-1">${t2('Tuʻutāmaki','Overdue Contacts')}</div>
+                                </div>
+                                <div class="bg-purple-50 rounded-xl p-3 text-center border-2 border-purple-200">
+                                    <div class="text-2xl font-black text-purple-700">${wcNamedTotal}</div>
+                                    <div class="text-xs font-bold text-purple-600 mt-1">${t2('Kau Kotoa','Total Tracked')}</div>
+                                </div>
+                            </div>
+                            <div class="grid md:grid-cols-2 gap-3">
+                                <div>
+                                    <div class="text-xs font-black text-emerald-700 uppercase tracking-wide mb-1">✅ ${t2('Mālohi Ai','Where We\'re Strong')}</div>
+                                    <div class="space-y-1">
+                                        ${wcStrong.length ? wcStrong.map(([code,v])=>{const ind=INDICATORS.find(i=>i.code===code);return `<div class="flex items-center justify-between bg-emerald-50 rounded-lg px-3 py-1.5"><span class="text-xs font-bold">${ind?.emoji||''} ${code}</span><span class="text-xs font-black text-emerald-700">${v}×</span></div>`;}).join('') : `<div class="text-xs text-gray-400">${t2('ʻIkai ha fakamatala','No data yet')}</div>`}
+                                    </div>
+                                </div>
+                                <div>
+                                    <div class="text-xs font-black text-red-700 uppercase tracking-wide mb-1">⚠️ ${t2('Vaivai / Fie Fakalakalaka','Weak / Needs Improvement')}</div>
+                                    <div class="space-y-1">
+                                        ${wcWeak.length ? wcWeak.map(([code])=>{const ind=INDICATORS.find(i=>i.code===code);return `<div class="flex items-center justify-between bg-red-50 rounded-lg px-3 py-1.5"><span class="text-xs font-bold">${ind?.emoji||''} ${code}</span><span class="text-xs font-black text-red-700">0×</span></div>`;}).join('') : `<div class="text-xs text-gray-400">${t2('Lelei ʻaupito','Nothing flagged 🎉')}</div>`}
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
                         ${upcomingEvents.length > 0 ? `
                         <div>
                             <h3 class="font-black text-lg text-teal-800 mb-2">📅 ${t('Upcoming Events')}</h3>
@@ -1051,7 +1374,14 @@
         };
 
         // ── Feature #10: Dark Mode ───────────────────────────
-        window.toggleDarkMode = () => { state.darkMode = !state.darkMode; render(); };
+        window.toggleTheme = () => {
+            const isLight = document.documentElement.getAttribute('data-theme') === 'light';
+            if (isLight) { document.documentElement.removeAttribute('data-theme'); }
+            else { document.documentElement.setAttribute('data-theme', 'light'); }
+            try { localStorage.setItem('f5Theme', isLight ? 'dark' : 'light'); } catch(e){}
+            render();
+        };
+        function currentThemeIsLight(){ return document.documentElement.getAttribute('data-theme') === 'light'; }
 
         window.updateBackgroundImage = (url) => {
             if (url && url.trim()) { state.backgroundImage = url.trim(); saveToFirebase(); render(); }
@@ -1085,8 +1415,9 @@
             }
         };
 
-        window.setActiveTab = (tab) => { state.activeTab = tab; render(); };
-        window.setViewMode = (mode) => { state.viewMode = mode; render(); };
+        window.setActiveTab = (tab) => { state.activeTab = tab; state.chartsScope = 'active'; render(); };
+        window.setChartsScope = (scope) => { state.chartsScope = scope; render(); };
+        window.setViewMode = (mode) => { state.viewMode = mode; try { history.replaceState(null, '', '#' + mode); } catch(e){} render(); };
         // ES-module scope fix: inline on* handlers run in global scope, so expose these.
         window.state = state;
         window.render = render;
@@ -1097,6 +1428,18 @@
             if (tab === 'investigators') state.investigators = state.investigators.map(p => p.id === idNum ? { ...p, nextAction: val } : p);
             else state.returning = state.returning.map(p => p.id === idNum ? { ...p, nextAction: val } : p);
             saveToFirebase();
+        };
+        window.quickSetOrdinance = (id, tab, val) => {
+            const idNum = parseInt(id);
+            if (tab === 'investigators') state.investigators = state.investigators.map(p => p.id === idNum ? { ...p, nextOrdinance: val } : p);
+            else state.returning = state.returning.map(p => p.id === idNum ? { ...p, nextOrdinance: val } : p);
+            debounce('ord_'+id, () => saveToFirebase());
+        };
+        window.quickSetPlanLSI = (id, tab, val) => {
+            const idNum = parseInt(id);
+            if (tab === 'investigators') state.investigators = state.investigators.map(p => p.id === idNum ? { ...p, planLSI: val } : p);
+            else state.returning = state.returning.map(p => p.id === idNum ? { ...p, planLSI: val } : p);
+            debounce('lsi_'+id, () => saveToFirebase());
         };
         window.toggleAddContact = () => { state.showAddContact = !state.showAddContact; render(); };
         window.thisWeekAddTask = () => {
@@ -1344,11 +1687,26 @@
             return { total, unique };
         }
 
+        function tabChip(mode, num, icon, label, badge) {
+            const sel = state.viewMode === mode;
+            return `<button class="tabchip" role="tab" aria-selected="${sel}" onclick="setViewMode('${mode}')">
+                <span class="tn">${num}</span><span class="tic">${icon}</span><span>${label}</span>${badge ? `<span class="tbadge">${badge}</span>` : ''}
+            </button>`;
+        }
+        function bomWeekBadge() {
+            const n = (state.bomChallenge || []).filter(c => isThisWeek(c.weekOf)).length;
+            return n > 0 ? String(n) : '';
+        }
+        function covenantBadge() {
+            const n = (state.covenantPath || []).length;
+            return n > 0 ? String(n) : '';
+        }
         function render() {
             const currentList = getCurrentList();
+            const scopeRelevant = ['tracker','thisweek','actionboard','charts'].includes(state.viewMode);
             const app = document.getElementById('app');
             app.innerHTML = `
-                <div class="min-h-screen relative overflow-hidden ${state.darkMode ? 'dark-mode' : ''}">
+                <div class="min-h-screen relative overflow-hidden">
                     <div class="fixed inset-0 z-0">
                         <div class="absolute inset-0 pn-canvas"></div>
                     </div>
@@ -1356,58 +1714,64 @@
                         <div class="max-w-7xl mx-auto">
 
                             <!-- ✅ HEADER TITLE -->
-                            <div class="text-center mb-5 md:mb-7 pt-2">
-                                <div style="width:46px;height:3px;background:var(--ss-gold);margin:0 auto 14px;border-radius:2px;"></div>
+                            <div class="text-center mb-3 md:mb-4 pt-2">
+                                <div style="width:42px;height:2.5px;background:var(--ss-gold);margin:0 auto 12px;border-radius:2px;"></div>
                                 <h1 class="text-2xl md:text-4xl lg:text-5xl leading-tight" style="color:var(--ss-ink);font-weight:600;">
                                     South Jordan 10th Tongan Ward
                                 </h1>
-                                <h2 class="text-lg md:text-2xl lg:text-3xl mt-1" style="color:var(--ss-gold-deep);font-weight:500;letter-spacing:.04em;text-transform:uppercase;">
+                                <h2 class="text-base md:text-xl lg:text-2xl mt-1" style="color:var(--ss-gold-deep);font-weight:500;letter-spacing:.16em;text-transform:uppercase;">
                                     Focus Five Tracker
                                 </h2>
                             </div>
 
-                            <!-- Tabs -->
-                            <div class="ss-sticky ngatu-panel flex gap-2 md:gap-4 mb-4 md:mb-6 flex-wrap items-center justify-between">
-                                <div class="flex gap-2 md:gap-4 flex-wrap flex-1">
-                                    <button onclick="setActiveTab('investigators')" class="flex items-center gap-2 md:gap-3 px-4 md:px-8 py-3 md:py-5 rounded-xl md:rounded-2xl font-black text-sm md:text-xl transition-all shadow-xl hover-lift flex-1 min-w-[140px] justify-center border-2 ${state.activeTab === 'investigators' ? 'bg-gradient-to-r from-amber-500 to-amber-600 text-white border-amber-700 scale-105 md:scale-110' : 'bg-white/95 backdrop-blur-lg text-amber-900 border-amber-200 hover:bg-white'}">
-                                        <span class="text-xl md:text-2xl">👤</span>
-                                        <div class="text-left"><div class="leading-tight">${t('Investigators')}</div><div class="text-xs font-normal opacity-80">(${state.investigators.length})</div></div>
-                                    </button>
-                                    <button onclick="setActiveTab('returning')" class="flex items-center gap-2 md:gap-3 px-4 md:px-8 py-3 md:py-5 rounded-xl md:rounded-2xl font-black text-sm md:text-xl transition-all shadow-xl hover-lift flex-1 min-w-[140px] justify-center border-2 ${state.activeTab === 'returning' ? 'bg-gradient-to-r from-green-600 to-green-700 text-white border-green-800 scale-105 md:scale-110' : 'bg-white/95 backdrop-blur-lg text-green-900 border-green-200 hover:bg-white'}">
-                                        <span class="text-xl md:text-2xl">💙</span>
-                                        <div class="text-left"><div class="leading-tight">${t('Returning')}</div><div class="text-xs font-normal opacity-80">(${state.returning.length})</div></div>
-                                    </button>
+                            <!-- Ngatu band -->
+                            <div class="ngatu-band mb-4 md:mb-5" role="presentation" aria-hidden="true"></div>
+
+                            <!-- Top bar: utilities -->
+                            <div class="ss-sticky flex gap-3 mb-4 flex-wrap items-center justify-between">
+                                <div class="hidden md:block" style="font-family:'Fraunces',Georgia,serif;font-style:italic;color:var(--ss-muted);font-size:13px;">
+                                    ${t2('Muimui ʻi he Nima','Focus Five')}
                                 </div>
-                                <div class="flex gap-2 md:gap-3 flex-wrap items-center">
+                                <div class="flex gap-2 flex-wrap items-center">
                                     ${syncIndicatorHTML()}
-                                    <button onclick="toggleLanguage()" class="flex items-center gap-2 px-4 md:px-5 py-2 md:py-3 rounded-xl font-black text-sm md:text-base shadow-xl hover-lift transition-all border-2 ${currentLang === 'to' ? 'bg-red-600 text-white border-red-800' : 'bg-white/95 text-red-700 border-red-300 hover:bg-white'}" title="${currentLang === 'to' ? 'Switch to English' : 'Liliu ki he Lea Tonga'}">🇹🇴 ${currentLang === 'to' ? 'English' : 'Lea Tonga'}</button>
-                                    <button onclick="saveToFirebase()" class="flex items-center gap-2 px-4 md:px-6 py-2 md:py-3 bg-gradient-to-r from-amber-600 to-amber-700 text-white rounded-xl hover:from-amber-700 hover:to-amber-800 transition-all shadow-xl font-bold text-sm md:text-base hover-lift">${t('💾 Save')}</button>
-                                    <button onclick="showWardCouncilReport()" class="flex items-center gap-1 px-3 md:px-4 py-2 md:py-3 bg-gradient-to-r from-indigo-600 to-purple-600 text-white rounded-xl hover:from-indigo-700 transition-all shadow-lg hover-lift font-bold text-sm" title="Ward Council Report">📋 ${t('Report')}</button>
-                                    <button onclick="toggleDarkMode()" class="flex items-center gap-1 px-3 md:px-4 py-2 md:py-3 bg-white/90 backdrop-blur-sm text-amber-800 rounded-xl hover:bg-white transition-all shadow-lg hover-lift border border-amber-300/50" title="Dark Mode">${state.darkMode ? '☀️' : '🌙'}</button>
-                                    <button onclick="showBackgroundImageModal()" class="flex items-center gap-1 px-3 md:px-4 py-2 md:py-3 bg-white/90 backdrop-blur-sm text-amber-800 rounded-xl hover:bg-white transition-all shadow-lg hover-lift border border-amber-300/50" title="Background">🖼️</button>
-                                    <button onclick="exportData()" class="flex items-center gap-1 px-3 md:px-4 py-2 md:py-3 bg-white/90 backdrop-blur-sm text-amber-800 rounded-xl hover:bg-white transition-all shadow-lg hover-lift border border-amber-300/50">📥</button>
-                                    <label class="flex items-center gap-1 px-3 md:px-4 py-2 md:py-3 bg-white/90 backdrop-blur-sm text-amber-800 rounded-xl hover:bg-white transition-all cursor-pointer shadow-lg hover-lift border border-amber-300/50">
-                                        📤<input type="file" accept=".json" onchange="importData(event)" class="hidden" />
-                                    </label>
+                                    <button onclick="toggleEditMode()" class="iconbtn ${editMode ? 'gold' : ''}" title="${editMode ? (currentLang==='to'?'Tāpuni ʻa e liliu fotó':'Lock photo editing') : (currentLang==='to'?'Fakaava ʻa e liliu fotó':'Unlock photo editing')}">${editMode ? '🔓' : '🔒'} <span class="hidden sm:inline">${currentLang==='to'?'Foto':'Photos'}</span></button>
+                                    <button onclick="toggleLanguage()" class="iconbtn" title="${currentLang === 'to' ? 'Switch to English' : 'Liliu ki he Lea Faka Tonga'}">🇹🇴 ${currentLang === 'to' ? 'English' : 'Lea Faka Tonga'}</button>
+                                    <button onclick="saveToFirebase()" class="iconbtn gold" title="${t('Save')}">💾 <span class="hidden sm:inline">${t('Save')}</span></button>
+                                    <button onclick="showWardCouncilReport()" class="iconbtn" title="${t('Ward Council Report')}">📋</button>
+                                    <button onclick="toggleTheme()" class="iconbtn" title="${t('Toggle theme')}">${currentThemeIsLight() ? '🌙' : '☀️'}</button>
+                                    <button onclick="exportData()" class="iconbtn" title="${t('Export')}">📥</button>
+                                    <label class="iconbtn cursor-pointer" title="${t('Import')}">📤<input type="file" accept=".json" onchange="importData(event)" class="hidden" /></label>
                                 </div>
                             </div>
 
-                            ${state.saveMessage ? `<div class="mb-4 p-3 md:p-4 bg-green-500 text-white rounded-xl md:rounded-2xl font-bold text-sm md:text-lg shadow-xl">${state.saveMessage}</div>` : ''}
+                            ${state.saveMessage ? `<div class="mb-4 p-3 md:p-4 rounded-xl font-bold text-sm md:text-base shadow-xl" style="background:var(--ss-sage-wash);color:var(--ss-sage);border:1px solid var(--ss-line);">${state.saveMessage}</div>` : ''}
 
-                            <!-- View Toggle -->
-                            <div class="bg-white/95 backdrop-blur-xl rounded-xl md:rounded-2xl shadow-xl p-3 md:p-5 mb-4 md:mb-6 border-2 border-amber-200">
-                                <div class="flex gap-2 md:gap-3 justify-center flex-wrap">
-                                    <button onclick="setViewMode('tracker')" class="nav-tab flex items-center gap-1 md:gap-2 px-4 md:px-8 py-2 md:py-4 rounded-lg md:rounded-xl font-bold text-xs md:text-lg transition-all hover-lift border-2" style="${state.viewMode === 'tracker' ? NAV_ACTIVE : NAV_INACTIVE}">📅 <span class="hidden sm:inline">${t('Monthly')}</span> ${t('Tracker')}</button>
-                                    <button onclick="setViewMode('thisweek')" class="nav-tab flex items-center gap-1 md:gap-2 px-4 md:px-8 py-2 md:py-4 rounded-lg md:rounded-xl font-bold text-xs md:text-lg transition-all hover-lift border-2" style="${state.viewMode === 'thisweek' ? NAV_ACTIVE : NAV_INACTIVE}">📋 ${navLabel('This Week')} ${renderWeekBadge()}</button>
-                                    <button onclick="setViewMode('actionboard')" class="nav-tab flex items-center gap-1 md:gap-2 px-4 md:px-8 py-2 md:py-4 rounded-lg md:rounded-xl font-bold text-xs md:text-lg transition-all hover-lift border-2" style="${state.viewMode === 'actionboard' ? NAV_ACTIVE : NAV_INACTIVE}">🗂️ ${navLabel('Action Board')}</button>
-                                    <button onclick="setViewMode('charts')" class="nav-tab flex items-center gap-1 md:gap-2 px-4 md:px-8 py-2 md:py-4 rounded-lg md:rounded-xl font-bold text-xs md:text-lg transition-all hover-lift border-2" style="${state.viewMode === 'charts' ? NAV_ACTIVE : NAV_INACTIVE}">📊 <span class="hidden sm:inline">${t('KPI')}</span> ${t('Dashboard')}</button>
-                                    <button onclick="setViewMode('events')" class="nav-tab flex items-center gap-1 md:gap-2 px-4 md:px-8 py-2 md:py-4 rounded-lg md:rounded-xl font-bold text-xs md:text-lg transition-all hover-lift border-2" style="${state.viewMode === 'events' ? NAV_ACTIVE : NAV_INACTIVE}">🎉 ${navLabel('Ward Calendar')}</button>
-                                    <button onclick="setViewMode('prayer')" class="nav-tab flex items-center gap-1 md:gap-2 px-4 md:px-8 py-2 md:py-4 rounded-lg md:rounded-xl font-bold text-xs md:text-lg transition-all hover-lift border-2" style="${state.viewMode === 'prayer' ? NAV_ACTIVE : NAV_INACTIVE}">🙏 ${navLabel('Prayer List')} ${state.prayerList.length > 0 ? `<span class="ml-1 bg-indigo-200 text-indigo-800 rounded-full px-1.5 text-xs font-black">${state.prayerList.length}</span>` : ''}</button>
+                            <!-- Primary tab bar (numbered) -->
+                            <div class="ngatu-panel mb-5 md:mb-6" style="background:var(--ss-surface);border:1px solid var(--ss-line);border-radius:16px;box-shadow:0 14px 40px rgba(0,0,0,.18);padding:0 4px;">
+                                <div class="tabbar">
+                                    ${tabChip('tracker','1','📅', t('Monthly Tracker'))}
+                                    ${tabChip('thisweek','2','📋', t('This Week'), renderWeekBadge())}
+                                    ${tabChip('actionboard','3','🗂️', t('Action Board'))}
+                                    ${tabChip('charts','4','📊', t('KPI Dashboard'))}
+                                    ${tabChip('events','5','🎉', t('Ward Calendar'))}
+                                    ${tabChip('promise','6','🙏', t('21-Day Promise'))}
+                                    ${tabChip('bomchallenge','7','📖', t2('Pole Tohi Molomona','B.O.M. Challenge'), bomWeekBadge())}
+                                    ${tabChip('covenant','8','✨', t('Covenant Path'), covenantBadge())}
                                 </div>
                             </div>
 
-                            ${state.viewMode === 'tracker' ? renderTracker(currentList) : state.viewMode === 'thisweek' ? renderThisWeek() : state.viewMode === 'actionboard' ? renderActionBoard() : state.viewMode === 'charts' ? renderCharts(currentList) : state.viewMode === 'prayer' ? renderPrayer() : renderEvents()}
-                            ${state.covenantPath.length > 0 ? renderCovenantPath() : ''}
+                            ${
+                                state.viewMode === 'tracker' ? renderTracker(currentList)
+                                : state.viewMode === 'thisweek' ? renderThisWeek()
+                                : state.viewMode === 'actionboard' ? renderActionBoard()
+                                : state.viewMode === 'charts' ? renderCharts(currentList)
+                                : state.viewMode === 'events' ? renderEvents()
+                                : state.viewMode === 'promise' ? renderPromise()
+                                : state.viewMode === 'bomchallenge' ? renderBomChallenge()
+                                : state.viewMode === 'covenant' ? renderCovenantPath()
+                                : state.viewMode === 'prayer' ? renderPrayer()
+                                : renderTracker(currentList)
+                            }
                         </div>
                     </div>
                 </div>
@@ -1439,18 +1803,31 @@
             const visibleMonths = state.trackerView === 'year' ? MONTHS : quarterMonths;
 
             return `
+                ${imageSlot('tracker_top', { label: t2('Foto ki ʻolunga','Photo (top of tracker)') })}
+
+                <!-- ── Gathering One by One in Christ ── -->
+                <div class="mb-4 rounded-2xl md:rounded-3xl overflow-hidden border-2 ${accentBorder} shadow-xl" style="background:linear-gradient(135deg,var(--ss-surface),var(--ss-surface-2));">
+                    <div class="px-5 md:px-7 py-4 md:py-5 text-center">
+                        <div class="text-xs font-black tracking-[.18em] uppercase mb-1" style="color:var(--ss-gold);">${t2('Fakataha ʻo e Toko Taha ki he Toko Taha','Gathering One by One')}</div>
+                        <h2 class="text-xl md:text-2xl" style="font-weight:800;color:var(--ss-ink);">${t2('Fakataha ʻi he Loto ʻo Kalaisi','One by One in Christ')}</h2>
+                        <p class="text-xs md:text-sm mt-1.5 max-w-2xl mx-auto" style="color:var(--ss-ink-soft);">${t2('Fakakaukauʻi lelei ʻa e ngaahi kaumeʻa, kaungāʻapi, foʻou, foki mai, mo e kau mēmipa — ʻilo ʻenau fakalotu hoko, mo e palani ke ʻofa, vahevahe, mo fakaafe.','Prayerfully consider friends, neighbors, new, returning, and participating members — identify each one\'s next ordinance and a plan to love, share, and invite.')}</p>
+                    </div>
+                </div>
+
                 <!-- Quarter Nav Bar -->
                 <div class="bg-white/95 backdrop-blur-xl rounded-2xl shadow-xl mb-4 overflow-hidden border-2 ${accentBorder}">
                     <div class="bg-gradient-to-r ${accentBtn} px-4 md:px-6 py-3 md:py-4">
                         <div class="flex items-center justify-between flex-wrap gap-3">
-                            <!-- View toggle -->
-                            <div class="flex bg-white/20 rounded-xl p-1 gap-1">
-                                <button onclick="setTrackerView('quarter')" class="px-3 md:px-5 py-2 rounded-lg font-black text-xs md:text-sm transition-all ${state.trackerView === 'quarter' ? 'bg-white text-amber-700 shadow-md' : 'text-white'}">
-                                    📅 ${t('Quarterly')}
-                                </button>
-                                <button onclick="setTrackerView('year')" class="px-3 md:px-5 py-2 rounded-lg font-black text-xs md:text-sm transition-all ${state.trackerView === 'year' ? 'bg-white text-amber-700 shadow-md' : 'text-white'}">
-                                    📆 ${t('Full Year')}
-                                </button>
+                            <!-- Scope toggle (Investigators / Returning) + View toggle -->
+                            <div class="flex items-center gap-2 flex-wrap">
+                                <div class="seg">
+                                    <button onclick="setActiveTab('investigators')" aria-pressed="${state.activeTab === 'investigators'}">👤 ${t2('Tangata ʻIkai Kāinga','Non Member')} <span class="cnt">${state.investigators.length}</span></button>
+                                    <button onclick="setActiveTab('returning')" aria-pressed="${state.activeTab === 'returning'}">💙 ${t('Returning')} <span class="cnt">${state.returning.length}</span></button>
+                                </div>
+                                <div class="seg">
+                                    <button onclick="setTrackerView('quarter')" aria-pressed="${state.trackerView === 'quarter'}">📅 ${t('Quarterly')}</button>
+                                    <button onclick="setTrackerView('year')" aria-pressed="${state.trackerView === 'year'}">📆 ${t('Full Year')}</button>
+                                </div>
                             </div>
 
                             <!-- Quarter navigation -->
@@ -1525,7 +1902,7 @@
                                         const isCurrentM = m === currentMonthName;
                                         return `<th class="text-white p-2 md:p-5 text-center font-black text-xs md:text-base ${state.trackerView === 'month' ? 'min-w-[200px]' : 'min-w-[65px]'} ${state.trackerView === 'month' && isCurrentM ? 'bg-white/20' : ''}">${m}</th>`;
                                     }).join('')}
-                                    <th class="text-white p-3 md:p-5 text-left font-black text-sm md:text-base min-w-[220px] mobile-hide">👤 Assigned</th>
+                                    <th class="text-white p-3 md:p-5 text-left font-black text-sm md:text-base min-w-[240px] mobile-hide">🕊️ ${t2('Palani Fakataha','Gathering Plan')}</th>
                                     <th class="text-white p-2 md:p-4"></th>
                                 </tr>
                             </thead>
@@ -1540,6 +1917,12 @@
                                                     <button onclick="openEmojiPicker(${person.id})" class="text-2xl md:text-3xl hover:scale-110 transition-transform flex-shrink-0" title="${currentLang==='to'?'Liliu fakaʻilonga':'Change avatar'}">${person.emoji||'👤'}</button>
                                                     <div class="flex-1 min-w-0">
                                                         <input type="text" value="${person.name || ''}" onchange="updateName(${person.id}, this.value)" placeholder="${idx + 1}. ${currentLang==='to'?'Hingoa...':'Name...'}" class="w-full px-2 py-1.5 border-2 border-amber-200 rounded-lg focus:border-amber-500 focus:outline-none font-bold text-sm shadow-sm" />
+                                                        ${isInv ? `<select onchange="updateCategory(${person.id}, this.value)" class="mt-1 w-full px-2 py-1 border border-amber-200 rounded-lg text-xs font-bold focus:outline-none focus:border-amber-500" title="${t2('Faʻahinga','Category')}">
+                                                            <option value="" ${!person.category?'selected':''}>${t2('Fili Faʻahinga…','Category…')}</option>
+                                                            <option value="NM" ${person.category==='NM'?'selected':''}>NM — ${t2('Tangata ʻIkai Kāinga','Non Member')}</option>
+                                                            <option value="PM" ${person.category==='PM'?'selected':''}>PM — ${t2('Fāmili ʻOku Konga Kāinga','Part Member Family')}</option>
+                                                            <option value="OAY" ${person.category==='OAY'?'selected':''}>OAY — ${t2('Talavou Motuʻa Ange','Over Aged Youth')}</option>
+                                                        </select>` : ''}
                                                         <div class="mt-1.5">
                                                             ${(() => {
                                                                 const streak = (() => { let s=0; for(let i=new Date().getMonth();i>=0;i--){ if((person.progress?.[MONTHS[i]]?.length||0)>0)s++;else break;} return s; })();
@@ -1594,14 +1977,17 @@
                                                     ${monthData.length > 0 ? `<button onclick="openIndicatorModal(${person.id}, '${month}')" class="text-xs font-bold" style="color:var(--ss-gold-deep);">${t('Edit')}</button>` : ''}`}
                                                 </td>`;
                                             }).join('')}
-                                            <!-- ── Unified Plan column ── -->
-                                            <td class="p-2 md:p-3 mobile-hide min-w-[220px]">
+                                            <!-- ── Gathering Plan column (Next Ordinance · Plan to Love/Share/Invite · Assigned) ── -->
+                                            <td class="p-2 md:p-3 mobile-hide min-w-[240px] align-top">
+                                                <input type="text" value="${(person.nextOrdinance||'').replace(/"/g,'&quot;')}" onchange="updateNextOrdinance(${person.id}, this.value)" placeholder="🕊️ ${t2('Fakalotu Hoko','Next Ordinance')}" title="${t2('Fakalotu Hoko','Next Ordinance')}" class="w-full px-2 py-1.5 border border-rose-200 rounded-lg text-xs font-semibold mb-1.5 focus:outline-none focus:border-rose-400" />
+                                                <input type="text" value="${(person.planLSI||'').replace(/"/g,'&quot;')}" onchange="updatePlanLSI(${person.id}, this.value)" placeholder="💌 ${t2('ʻOfa · Vahevahe · Fakaafe','Love · Share · Invite')}" title="${t2('Palani ke ʻOfa, Vahevahe, Fakaafe','Plan to Love, Share, Invite')}" class="w-full px-2 py-1.5 border border-rose-200 rounded-lg text-xs font-semibold mb-1.5 focus:outline-none focus:border-rose-400" />
                                                 <select onchange="updateCombinedAssignment(${person.id}, this.value)" class="w-full px-2 py-1.5 border border-rose-200 rounded-lg text-xs font-semibold mb-1.5 focus:outline-none focus:border-rose-400" title="Who is responsible for this person">
                                                     <option value="">👤 Assign to...</option>
                                                     <option value="Elders Quorum" ${person.assignedTo==='Elders Quorum'?'selected':''}>⚡ Elders Quorum</option>
                                                     <option value="Relief Society" ${person.assignedTo==='Relief Society'?'selected':''}>🌸 Relief Society</option>
                                                     <option value="Young Men" ${person.assignedTo==='Young Men'?'selected':''}>🎯 Young Men</option>
                                                     <option value="Young Women" ${person.assignedTo==='Young Women'?'selected':''}>⭐ Young Women</option>
+                                                    <option value="YSA" ${person.assignedTo==='YSA'?'selected':''}>🔆 YSA</option>
                                                     <option value="Sunday School/Primary" ${person.assignedTo==='Sunday School/Primary'?'selected':''}>📚 Sunday School/Primary</option>
                                                 </select>
                                                 <button onclick="markContacted(${person.id})" class="w-full py-1.5 text-xs font-black rounded-lg transition-all ${person.lastContactDate ? 'bg-green-50 text-green-700 border border-green-200' : 'bg-rose-100 text-rose-700 hover:bg-rose-200'}">
@@ -1701,6 +2087,10 @@
                                 </div>
                                 <input type="text" value="${(p.nextAction||'').replace(/"/g,'&quot;')}" onchange="quickSetAction('${p.id}','${p._tab}',this.value)" placeholder="📝 ${t('Add a task / next action...')}" class="tw-field mt-2 w-full text-sm font-semibold rounded-lg px-2 py-1.5 focus:outline-none ${isDone?'line-through opacity-60':''}" style="${fieldStyle}" />
                                 <textarea onchange="quickSetNotes('${p.id}','${p._tab}',this.value)" rows="1" placeholder="🗒️ ${t('Note for this contact...')}" class="tw-field mt-2 w-full text-xs rounded-lg px-2 py-1.5 resize-none focus:outline-none" style="${fieldStyle}">${p.notes||''}</textarea>
+                                <div class="grid grid-cols-1 sm:grid-cols-2 gap-2 mt-2">
+                                    <input type="text" value="${(p.nextOrdinance||'').replace(/"/g,'&quot;')}" onchange="quickSetOrdinance('${p.id}','${p._tab}',this.value)" placeholder="🕊️ ${t2('Fakalotu Hoko','Next Ordinance')}" title="${t2('Fakalotu Hoko','Next Ordinance')}" class="tw-field w-full text-xs font-semibold rounded-lg px-2 py-1.5 focus:outline-none" style="${fieldStyle}" />
+                                    <input type="text" value="${(p.planLSI||'').replace(/"/g,'&quot;')}" onchange="quickSetPlanLSI('${p.id}','${p._tab}',this.value)" placeholder="💌 ${t2('ʻOfa · Vahevahe · Fakaafe','Love · Share · Invite')}" title="${t2('Palani ke ʻOfa, Vahevahe, Fakaafe','Plan to Love, Share, Invite')}" class="tw-field w-full text-xs font-semibold rounded-lg px-2 py-1.5 focus:outline-none" style="${fieldStyle}" />
+                                </div>
                                 ${sinceContact !== null ? `<div class="mt-1.5 text-xs font-semibold" style="color:var(--ss-muted);">Last contacted: ${sinceContact === 0 ? 'today' : sinceContact+'d ago'}</div>` : ''}
                             </div>
                         </div>
@@ -1742,8 +2132,9 @@
 
             return `
             <div class="space-y-5">
+                ${imageSlot('thisweek', { label: t2('Foto ki he Ngāue ʻo e Wikí','Photo (This Week Focus)') })}
                 <!-- Header -->
-                <div class="bg-gradient-to-r from-rose-600 to-red-600 rounded-2xl p-5 shadow-xl text-white">
+                <div class="rounded-2xl p-5 shadow-xl text-white" style="background:#b5485a;">
                     <div class="flex items-center justify-between flex-wrap gap-3">
                         <div class="flex items-center gap-3">
                             <span class="text-4xl">📋</span>
@@ -1943,6 +2334,10 @@
             }
             const overdue = allPeople.filter(p => p.nextContactDate && getDaysUntil(p.nextContactDate) < 0);
             const dueThisWeek = allPeople.filter(p => p.nextContactDate && getDaysUntil(p.nextContactDate) >= 0 && getDaysUntil(p.nextContactDate) <= 7);
+            const weekEvents = (state.events||[]).filter(e => {
+                const d = parseLocalDate(e.date); d.setHours(0,0,0,0);
+                return d >= today && d <= in7;
+            }).sort((a,b)=>parseLocalDate(a.date)-parseLocalDate(b.date));
             const lines = ['📋 This Week\'s Focus — South Jordan 10th Tongan Ward\n'];
             if (overdue.length) {
                 lines.push('🔴 OVERDUE:');
@@ -1956,7 +2351,14 @@
                     lines.push(`  • ${p.name} — ${when}${p.assignedTo?' ('+p.assignedTo+')':''}: ${p.nextAction||'Follow up'}`);
                 });
             }
-            if (!overdue.length && !dueThisWeek.length) lines.push('✅ No urgent contacts this week!');
+            if (weekEvents.length) {
+                lines.push('\n🎉 CALENDAR THIS WEEK:');
+                weekEvents.forEach(e => {
+                    const when = parseLocalDate(e.date).toLocaleDateString('en-US',{weekday:'short',month:'short',day:'numeric'});
+                    lines.push(`  • ${e.name} — ${when}${e.time?' · '+e.time:''}${e.location?' · 📍'+e.location:''}`);
+                });
+            }
+            if (!overdue.length && !dueThisWeek.length && !weekEvents.length) lines.push('✅ No urgent contacts or events this week!');
             const text = lines.join('\n');
             if (navigator.share) {
                 navigator.share({ title: 'This Week\'s Focus', text });
@@ -2006,10 +2408,10 @@
             }
 
             const columns = {
-                new: { label: '🌱 New', subtitle: 'No engagement yet', color: 'from-slate-500 to-slate-600', bg: 'bg-slate-50', border: 'border-slate-200', people: [] },
-                inprogress: { label: '🔄 In Progress', subtitle: 'Actively engaged', color: 'from-blue-500 to-blue-600', bg: 'bg-blue-50', border: 'border-blue-200', people: [] },
-                attention: { label: '⚡ Needs Attention', subtitle: '30+ days no contact', color: 'from-orange-500 to-red-500', bg: 'bg-orange-50', border: 'border-orange-200', people: [] },
-                milestone: { label: '🏆 Milestone Hit', subtitle: 'Baptism date or baptized', color: 'from-emerald-500 to-teal-600', bg: 'bg-emerald-50', border: 'border-emerald-200', people: [] },
+                new: { label: '🌱 New', subtitle: 'No engagement yet', color: 'from-slate-500 to-slate-600', head: '#3a7d5e', bg: 'bg-slate-50', border: 'border-slate-200', people: [] },
+                inprogress: { label: '🔄 In Progress', subtitle: 'Actively engaged', color: 'from-blue-500 to-blue-600', head: '#34618f', bg: 'bg-blue-50', border: 'border-blue-200', people: [] },
+                attention: { label: '⚡ Needs Attention', subtitle: '30+ days no contact', color: 'from-orange-500 to-red-500', head: '#b3553f', bg: 'bg-orange-50', border: 'border-orange-200', people: [] },
+                milestone: { label: '🏆 Milestone Hit', subtitle: 'Baptism date or baptized', color: 'from-emerald-500 to-teal-600', head: '#9a7b2e', bg: 'bg-emerald-50', border: 'border-emerald-200', people: [] },
             };
 
             filteredPeople.forEach(p => {
@@ -2054,6 +2456,7 @@
 
             return `
             <div class="space-y-5">
+                ${imageSlot('actionboard', { label: t2('Foto ki he Palanga Ngāué','Photo (above the war-room)') })}
                 <!-- Header -->
                 <div class="bg-gradient-to-r from-violet-700 to-purple-700 rounded-2xl p-5 shadow-xl text-white">
                     <div class="flex items-center justify-between flex-wrap gap-3">
@@ -2073,16 +2476,16 @@
                         </div>
                     </div>
                     <div class="flex gap-1.5 flex-wrap mt-4 pt-3" style="border-top:1px solid rgba(255,255,255,.18);">
-                        ${[['all',t('All')],['Elders Quorum','⚡ EQ'],['Relief Society','🌸 RS'],['Young Men','🎯 YM'],['Young Women','⭐ YW'],['Sunday School/Primary','📚 SS']].map(([val,lab])=>`
+                        ${[['all',t('All')],['Elders Quorum','⚡ EQ'],['Relief Society','🌸 RS'],['Young Men','🎯 YM'],['Young Women','⭐ YW'],['YSA','🔆 YSA'],['Sunday School/Primary','📚 SS']].map(([val,lab])=>`
                             <button onclick="setBoardFilter('${val}')" class="px-3 py-1.5 rounded-lg text-xs font-black transition-all ${boardFilter===val?'bg-white text-purple-700 shadow':'bg-white/15 text-white hover:bg-white/25'}">${lab}</button>`).join('')}
                     </div>
                 </div>
                 <div class="grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-4 gap-4">
                     ${Object.entries(columns).map(([k,col])=>`
                     <div class="bg-white/95 backdrop-blur-md rounded-2xl shadow-xl overflow-hidden border-2 ${col.border}">
-                        <div class="bg-gradient-to-r ${col.color} px-4 py-3">
+                        <div class="px-4 py-3" style="background:${col.head};">
                             <h3 class="font-black text-white text-base">${col.label} <span class="bg-white/30 text-white text-xs px-2 py-0.5 rounded-full ml-1">${col.people.length}</span></h3>
-                            <p class="text-white/75 text-xs font-semibold mt-0.5">${col.subtitle}</p>
+                            <p class="text-white/85 text-xs font-semibold mt-0.5">${col.subtitle}</p>
                         </div>
                         <div class="p-3 space-y-2 min-h-[120px]">
                             ${col.people.length > 0 ? col.people.map(renderCard).join('') : `<div class="text-center py-6 text-gray-300"><div class="text-3xl mb-1">✨</div><div class="text-xs font-bold">No one here</div></div>`}
@@ -2339,9 +2742,11 @@
         }
 
         function renderCharts(currentList) {
+            const scope = state.chartsScope || 'active';
+            if (scope === 'both') currentList = [...state.investigators, ...state.returning];
             const totalActivities = currentList.reduce((sum, p) => sum + Object.values(p.progress||{}).flat().length, 0);
             const avgPerPerson = currentList.length > 0 ? (totalActivities/currentList.length).toFixed(1) : 0;
-            const isInv = state.activeTab === 'investigators';
+            const isInv = scope === 'both' ? true : state.activeTab === 'investigators';
 
             // Most active month
             const monthTotals = MONTHS.map(m => currentList.reduce((s,p) => s + (p.progress?.[m]?.length||0), 0));
@@ -2472,36 +2877,47 @@
                     });
                 }
 
-                // Chart 4 — Radar Chart per person
-                const ctx4 = document.getElementById('radarChart');
-                if (ctx4 && currentList.length > 0) {
+                // Chart 4 — Invitations Given by Month (replaces the old bi-monthly radar)
+                const ctx4 = document.getElementById('invitationsChart');
+                if (ctx4) {
                     if (ctx4._chartInstance) ctx4._chartInstance.destroy();
-                    const radarLabels = ['Jan-Feb','Mar-Apr','May-Jun','Jul-Aug','Sep-Oct','Nov-Dec'];
-                    const radarColors = ['#f59e0b','#3b82f6','#10b981','#a855f7','#f97316'];
-                    const datasets = currentList.filter(p=>p.name).map((person, i) => {
-                        const pairs = [[0,1],[2,3],[4,5],[6,7],[8,9],[10,11]];
-                        return {
-                            label: person.name||`P${i+1}`,
-                            data: pairs.map(([a,b]) => (person.progress?.[MONTHS[a]]?.length||0)+(person.progress?.[MONTHS[b]]?.length||0)),
-                            borderColor: radarColors[i%radarColors.length],
-                            backgroundColor: radarColors[i%radarColors.length]+'33',
-                            borderWidth: 2,
-                            pointRadius: 4
-                        };
-                    });
+                    const invColors = { IAC:'#3b82f6', IRB:'#10b981', IACA:'#a855f7', IFHE:'#eab308', ITM:'#f97316', ITB:'#ec4899', IFH:'#6366f1', ISP:'#14b8a6' };
+                    const datasets = INVITATION_CODES.map(code => ({
+                        label: code,
+                        data: MONTHS.map(m => currentList.reduce((s,p)=>s+((p.progress?.[m]||[]).filter(c=>c===code).length),0)),
+                        backgroundColor: invColors[code] || '#94a3b8'
+                    })).filter(ds => ds.data.some(v=>v>0));
                     if (datasets.length > 0) {
                         ctx4._chartInstance = new Chart(ctx4, {
-                            type: 'radar',
-                            data: { labels: radarLabels, datasets },
+                            type: 'bar',
+                            data: { labels: MONTHS, datasets },
                             options: {
                                 responsive: true, maintainAspectRatio: false,
-                                scales: { r: { beginAtZero: true, grid: { color: 'rgba(0,0,0,0.08)' }, ticks: { font: { weight: 'bold' }, backdropColor: 'transparent' } } },
-                                plugins: { legend: { labels: { font: { weight: 'bold' } } } }
+                                plugins: { legend: { position: 'bottom', labels: { font: { weight: 'bold', size: 10 }, boxWidth: 12 } } },
+                                scales: {
+                                    x: { stacked: true, grid: { display: false }, ticks: { font: { weight: 'bold' } } },
+                                    y: { stacked: true, beginAtZero: true, grid: { color: 'rgba(0,0,0,0.06)' }, ticks: { font: { weight: 'bold' }, precision: 0 } }
+                                }
                             }
                         });
                     }
                 }
             }, 100);
+
+            // Invitation-type breakdown — which kinds of invitations we're strong/weak on
+            const invCounts = {};
+            INVITATION_CODES.forEach(code => { invCounts[code] = 0; });
+            currentList.forEach(p => Object.values(p.progress||{}).flat().forEach(code => { if(invCounts[code] !== undefined) invCounts[code]++; }));
+            const totalInvitations = Object.values(invCounts).reduce((a,b)=>a+b,0);
+            const invRanked = Object.entries(invCounts).sort((a,b)=>b[1]-a[1]);
+            const invStrong = invRanked.filter(([,v])=>v>0).slice(0,3);
+            const invWeak = invRanked.filter(([,v])=>v===0);
+
+            // 21-Day Promise participation
+            const ppl = state.promisePeople || [];
+            const promiseStarted = ppl.filter(p=>p.startDate).length;
+            const promiseFinished = ppl.filter(p=>p.completeDate).length;
+            const promiseRate = ppl.length > 0 ? Math.round((promiseFinished/ppl.length)*100) : 0;
 
             const accentFrom = isInv ? 'from-amber-500' : 'from-green-500';
             const accentTo = isInv ? 'to-orange-500' : 'to-emerald-500';
@@ -2510,6 +2926,13 @@
 
             return `
                 <div class="space-y-5">
+                    ${imageSlot('kpi', { label: t2('Foto ki he Tapuleti KPI','Photo (top of KPI Dashboard)') })}
+                    <!-- Scope toggle: Investigators / Returning / Both -->
+                    <div class="seg" style="display:inline-flex;">
+                        <button onclick="setActiveTab('investigators')" aria-pressed="${scope!=='both' && state.activeTab==='investigators'}">👤 ${t('Investigators')}</button>
+                        <button onclick="setActiveTab('returning')" aria-pressed="${scope!=='both' && state.activeTab==='returning'}">💙 ${t('Returning')}</button>
+                        <button onclick="setChartsScope('both')" aria-pressed="${scope==='both'}">🔗 ${t2('Fakatahaʻi','Both')}</button>
+                    </div>
                     <!-- Stat Cards Row -->
                     <div class="grid grid-cols-2 md:grid-cols-4 gap-4">
                         <div class="bg-white/95 backdrop-blur-md rounded-2xl p-5 shadow-xl hover-lift border-t-4 border-amber-400 text-center">
@@ -2604,7 +3027,7 @@
                         </div>
                     </div>
 
-                    <!-- Indicator Donut + Radar -->
+                    <!-- Indicator Donut + Invitations by Month -->
                     <div class="grid md:grid-cols-2 gap-5">
                         <div class="bg-white/95 backdrop-blur-md rounded-2xl shadow-xl p-6 hover-lift border-2 ${accentBorder}">
                             <h3 class="font-black text-xl mb-1 ${accentText}">🎯 ${t('Top Indicators Used')}</h3>
@@ -2616,12 +3039,53 @@
                             </div>
                         </div>
                         <div class="bg-white/95 backdrop-blur-md rounded-2xl shadow-xl p-6 hover-lift border-2 ${accentBorder}">
-                            <h3 class="font-black text-xl mb-1 ${accentText}">🕸️ ${t('Bi-Monthly Radar')}</h3>
-                            <p class="text-xs text-gray-500 mb-4 font-semibold">${t('Activity spread across the year per person')}</p>
+                            <h3 class="font-black text-xl mb-1 ${accentText}">📣 ${t2('Ngaahi Fakaʻaʻaa ʻi he Māhiná','Invitations Given by Month')}</h3>
+                            <p class="text-xs text-gray-500 mb-4 font-semibold">${t2('Ko e ngaahi fakaʻaʻaa kuo fai ʻi he māhina kotoa','How many invitations went out each month')}</p>
                             <div style="height:220px;position:relative;">
-                                ${currentList.filter(p=>p.name).length > 0
-                                    ? `<canvas id="radarChart"></canvas>`
-                                    : `<div class="flex items-center justify-center h-full text-gray-400 text-center"><div><div class="text-5xl mb-3">🕸️</div><div class="font-bold">${t('Add names to see radar')}</div></div></div>`}
+                                ${totalInvitations > 0
+                                    ? `<canvas id="invitationsChart"></canvas>`
+                                    : `<div class="flex items-center justify-center h-full text-gray-400 text-center"><div><div class="text-5xl mb-3">📣</div><div class="font-bold">${t2('Heʻeki ai ha fakaʻaʻaa kuo lekooti','No invitations logged yet')}</div></div></div>`}
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Invitation strengths & gaps -->
+                    ${totalInvitations > 0 ? `
+                    <div class="bg-white/95 backdrop-blur-md rounded-2xl shadow-xl p-6 hover-lift border-2 ${accentBorder}">
+                        <h3 class="font-black text-xl mb-1 ${accentText}">🧭 ${t2('Mālohi mo e Vaivai ʻi he Fakaʻaʻaá','Where We\'re Strong / Where We Lack')}</h3>
+                        <p class="text-xs text-gray-500 mb-4 font-semibold">${t2('Ko e ngaahi faʻahinga fakaʻaʻaa ʻoku lahi mo siʻi hono fakaʻaongaʻí','Invitation types ranked by how often they\'re used')}</p>
+                        <div class="grid md:grid-cols-2 gap-4">
+                            <div>
+                                <div class="text-xs font-black text-emerald-600 uppercase tracking-wide mb-2">✅ ${t2('Mālohi','Strongest')}</div>
+                                <div class="space-y-1.5">
+                                    ${invStrong.map(([code,v])=>{const ind=INDICATORS.find(i=>i.code===code);return `<div class="flex items-center justify-between bg-emerald-50 rounded-lg px-3 py-2"><span class="text-sm font-bold">${ind?.emoji||'📣'} ${code} — ${ind?(currentLang==='to'?ind.toName:ind.name):code}</span><span class="text-sm font-black text-emerald-700">${v}×</span></div>`;}).join('') || `<div class="text-xs text-gray-400">${t2('ʻIkai ha fakamatala','No data yet')}</div>`}
+                                </div>
+                            </div>
+                            <div>
+                                <div class="text-xs font-black text-red-600 uppercase tracking-wide mb-2">⚠️ ${t2('Vaivai / ʻOku Siʻi','Lacking — never used')}</div>
+                                <div class="space-y-1.5">
+                                    ${invWeak.length > 0 ? invWeak.map(([code])=>{const ind=INDICATORS.find(i=>i.code===code);return `<div class="flex items-center justify-between bg-red-50 rounded-lg px-3 py-2"><span class="text-sm font-bold">${ind?.emoji||'📣'} ${code} — ${ind?(currentLang==='to'?ind.toName:ind.name):code}</span><span class="text-sm font-black text-red-600">0×</span></div>`;}).join('') : `<div class="text-xs text-gray-400">${t2('Naʻe fakaʻaongaʻi e fakaʻaʻaa kotoa','Every invitation type has been used 🎉')}</div>`}
+                                </div>
+                            </div>
+                        </div>
+                    </div>` : ''}
+
+                    <!-- 21-Day Promise participation -->
+                    <div class="bg-white/95 backdrop-blur-md rounded-2xl shadow-xl p-6 hover-lift border-2 ${accentBorder}">
+                        <h3 class="font-black text-xl mb-1 ${accentText}">🙏 ${t2('Kau ʻi he Palōmesi ʻAho ʻe 21','21-Day Promise Participation')}</h3>
+                        <p class="text-xs text-gray-500 mb-4 font-semibold">${t2('Mei he tracker ʻo e Palōmesí','From the 21-Day Promise tab')}</p>
+                        <div class="grid grid-cols-3 gap-3">
+                            <div class="rounded-xl p-3 text-center" style="background:var(--ss-surface-2);border:1px solid var(--ss-line-2);">
+                                <div class="text-2xl font-black ${accentText}">${ppl.length}</div>
+                                <div class="text-xs font-bold text-gray-500 mt-1 uppercase">${t2('Kau','Tracked')}</div>
+                            </div>
+                            <div class="rounded-xl p-3 text-center" style="background:var(--ss-surface-2);border:1px solid var(--ss-line-2);">
+                                <div class="text-2xl font-black text-blue-600">${promiseStarted}</div>
+                                <div class="text-xs font-bold text-gray-500 mt-1 uppercase">${t2('Kamata','Started')}</div>
+                            </div>
+                            <div class="rounded-xl p-3 text-center" style="background:var(--ss-surface-2);border:1px solid var(--ss-line-2);">
+                                <div class="text-2xl font-black text-emerald-600">${promiseFinished} <span style="font-size:14px;">(${promiseRate}%)</span></div>
+                                <div class="text-xs font-bold text-gray-500 mt-1 uppercase">${t2('Kakato','Completed')}</div>
                             </div>
                         </div>
                     </div>
@@ -2691,162 +3155,6 @@
                             }).join('')}
                         </div>
                     </div>` : ''}
-
-                    <!-- ✅ COVENANT PATH KPI SECTION -->
-                    ${state.covenantPath.length > 0 ? (() => {
-                        const cp = state.covenantPath;
-                        const cpTotalActs = cp.reduce((s,p)=>s+Object.values(p.progress||{}).flat().length,0);
-                        const cpBaptized = cp.length;
-                        const cpMale = cp.filter(p=>p.type==='Male').length;
-                        const cpFemale = cp.filter(p=>p.type==='Female').length;
-                        const cpOAY = cp.filter(p=>p.type==='OAY').length;
-                        const cpEndowed = cp.filter(p=>p.ordinances?.endowment||p.femaleOrdinances?.endowment).length;
-                        const cpMelch = cp.filter(p=>p.ordinances?.melchizedekPriesthood).length;
-                        const cpPatriarchal = cp.filter(p=>p.ordinances?.patriarchalBlessing||p.femaleOrdinances?.patriarchalBlessing).length;
-                        const cpTemple = cp.filter(p=>p.ordinances?.templeBaptisms||p.femaleOrdinances?.templeBaptisms).length;
-                        const cpAaronic = cp.filter(p=>p.ordinances?.aaronicPriesthood).length;
-                        const srKeys = ['emotionalResilience','personalFinances','startGrowBusiness','educationBetterWork','findBetterJob'];
-                        const srLabels = ['Emotional Resilience','Personal Finances','Start & Grow Business','Education for Work','Find a Better Job'];
-                        const srCounts = srKeys.map(k=>cp.filter(p=>p.selfRelianceCompleted?.[k]).length);
-                        const totalOrdinances = cpEndowed + cpMelch + cpPatriarchal + cpTemple + cpAaronic;
-                        const maxOrdinances = cp.length * 5;
-                        const ordPct = maxOrdinances > 0 ? Math.round((totalOrdinances/maxOrdinances)*100) : 0;
-
-                        setTimeout(() => {
-                            const ctx5 = document.getElementById('cpTypeDonut');
-                            if (ctx5 && (cpMale+cpFemale+cpOAY) > 0) {
-                                if (ctx5._chartInstance) ctx5._chartInstance.destroy();
-                                ctx5._chartInstance = new Chart(ctx5, {
-                                    type: 'doughnut',
-                                    data: {
-                                        labels: ['Male','Female','OAY'],
-                                        datasets: [{ data: [cpMale,cpFemale,cpOAY], backgroundColor: ['#3b82f6','#ec4899','#8b5cf6'], borderWidth: 3, borderColor: '#fff', hoverOffset: 8 }]
-                                    },
-                                    options: { responsive:true, maintainAspectRatio:false, cutout:'60%', plugins:{ legend:{ position:'right', labels:{ font:{ weight:'bold', size:12 }, padding:10 } } } }
-                                });
-                            }
-                            const ctx6 = document.getElementById('cpSRBar');
-                            if (ctx6) {
-                                if (ctx6._chartInstance) ctx6._chartInstance.destroy();
-                                ctx6._chartInstance = new Chart(ctx6, {
-                                    type: 'bar',
-                                    data: {
-                                        labels: ['Emotional','Finances','Business','Education','Job'],
-                                        datasets: [{ label: 'Completed', data: srCounts, backgroundColor: ['#a855f7','#3b82f6','#10b981','#f59e0b','#ef4444'], borderRadius: 8, borderSkipped: false }]
-                                    },
-                                    options: { responsive:true, maintainAspectRatio:false, plugins:{ legend:{ display:false } }, scales:{ y:{ beginAtZero:true, max: Math.max(cpBaptized,1), ticks:{ stepSize:1, font:{ weight:'bold' } }, grid:{ color:'rgba(0,0,0,0.06)' } }, x:{ grid:{ display:false }, ticks:{ font:{ weight:'700', size:11 } } } } }
-                                });
-                            }
-                        }, 150);
-
-                        return `
-                        <div class="bg-gradient-to-br from-purple-900 via-indigo-900 to-purple-900 rounded-2xl shadow-2xl p-6 hover-lift border-2 border-purple-400/40">
-                            <div class="flex items-center gap-3 mb-6">
-                                <div class="text-4xl">📖</div>
-                                <div>
-                                    <h3 class="font-black text-2xl text-white">${t('Covenant Path Dashboard')}</h3>
-                                    <p class="text-purple-300 text-sm font-semibold">${t('Progress tracking for baptized members')}</p>
-                                </div>
-                            </div>
-
-                            <!-- CP Stat Cards -->
-                            <div class="grid grid-cols-2 md:grid-cols-4 gap-3 mb-5">
-                                <div class="bg-white/10 backdrop-blur rounded-xl p-4 text-center border border-white/20">
-                                    <div class="text-3xl mb-1">✨</div>
-                                    <div class="text-3xl font-black text-white">${cpBaptized}</div>
-                                    <div class="text-xs text-purple-300 font-bold mt-1 uppercase tracking-wide">Baptized</div>
-                                </div>
-                                <div class="bg-white/10 backdrop-blur rounded-xl p-4 text-center border border-white/20">
-                                    <div class="text-3xl mb-1">⭐</div>
-                                    <div class="text-3xl font-black text-white">${cpTotalActs}</div>
-                                    <div class="text-xs text-purple-300 font-bold mt-1 uppercase tracking-wide">Pre-Baptism Acts</div>
-                                </div>
-                                <div class="bg-white/10 backdrop-blur rounded-xl p-4 text-center border border-white/20">
-                                    <div class="text-3xl mb-1">🏛️</div>
-                                    <div class="text-3xl font-black text-white">${cpEndowed}</div>
-                                    <div class="text-xs text-purple-300 font-bold mt-1 uppercase tracking-wide">Endowed</div>
-                                </div>
-                                <div class="bg-white/10 backdrop-blur rounded-xl p-4 text-center border border-white/20">
-                                    <div class="text-3xl mb-1">📜</div>
-                                    <div class="text-3xl font-black text-amber-300">${Math.round((totalOrdinances/Math.max(maxOrdinances,1))*100)}%</div>
-                                    <div class="text-xs text-purple-300 font-bold mt-1 uppercase tracking-wide">Ordinance Rate</div>
-                                </div>
-                            </div>
-
-                            <!-- Charts row -->
-                            <div class="grid md:grid-cols-2 gap-4 mb-5">
-                                <div class="bg-white/10 backdrop-blur rounded-xl p-5 border border-white/20">
-                                    <h4 class="font-black text-white mb-1">👥 ${t('Member Types')}</h4>
-                                    <p class="text-xs text-purple-300 mb-3 font-semibold">${t('Male / Female / OAY breakdown')}</p>
-                                    <div style="height:180px;position:relative;">
-                                        ${(cpMale+cpFemale+cpOAY)>0 ? '<canvas id="cpTypeDonut"></canvas>' : `<div class="flex items-center justify-center h-full text-purple-300 text-sm font-bold">${t('Assign types to members first')}</div>`}
-                                    </div>
-                                </div>
-                                <div class="bg-white/10 backdrop-blur rounded-xl p-5 border border-white/20">
-                                    <h4 class="font-black text-white mb-1">💼 ${t('Self-Reliance Classes')}</h4>
-                                    <p class="text-xs text-purple-300 mb-3 font-semibold">${t('Completed courses across all members')}</p>
-                                    <div style="height:180px;position:relative;">
-                                        <canvas id="cpSRBar"></canvas>
-                                    </div>
-                                </div>
-                            </div>
-
-                            <!-- Ordinance Progress Bars -->
-                            <div class="bg-white/10 backdrop-blur rounded-xl p-5 border border-white/20 mb-4">
-                                <h4 class="font-black text-white mb-4">🏆 ${t('Ordinance Progress')} (${totalOrdinances} / ${maxOrdinances} total)</h4>
-                                <div class="space-y-3">
-                                    ${[
-                                        { label: t('Aaronic Priesthood'), count: cpAaronic, emoji: '✋', color: 'from-blue-400 to-blue-500' },
-                                        { label: t('Temple Baptisms'), count: cpTemple, emoji: '🏛️', color: 'from-indigo-400 to-indigo-500' },
-                                        { label: t('Patriarchal Blessing'), count: cpPatriarchal, emoji: '📜', color: 'from-purple-400 to-purple-500' },
-                                        { label: t('Melchizedek Priesthood'), count: cpMelch, emoji: '👔', color: 'from-pink-400 to-pink-500' },
-                                        { label: t('Temple Endowment'), count: cpEndowed, emoji: '⭐', color: 'from-amber-400 to-amber-500' },
-                                    ].map(ord => {
-                                        const pct = cpBaptized > 0 ? Math.round((ord.count/cpBaptized)*100) : 0;
-                                        return `<div>
-                                            <div class="flex justify-between mb-1">
-                                                <span class="text-sm font-bold text-white">${ord.emoji} ${ord.label}</span>
-                                                <span class="text-sm font-black text-amber-300">${ord.count} / ${cpBaptized}</span>
-                                            </div>
-                                            <div class="bg-white/10 rounded-full h-5 overflow-hidden">
-                                                <div class="bg-gradient-to-r ${ord.color} h-full rounded-full transition-all flex items-center justify-end pr-2" style="width:${pct}%">
-                                                    ${pct > 15 ? `<span class="text-white text-xs font-black">${pct}%</span>` : ''}
-                                                </div>
-                                            </div>
-                                        </div>`;
-                                    }).join('')}
-                                </div>
-                            </div>
-
-                            <!-- Member list with pre-baptism activity count -->
-                            <div class="bg-white/10 backdrop-blur rounded-xl p-5 border border-white/20">
-                                <h4 class="font-black text-white mb-4">📋 ${t('Member Overview')}</h4>
-                                <div class="space-y-3">
-                                    ${cp.map(person => {
-                                        const preActs = Object.values(person.progress||{}).flat().length;
-                                        const ordinanceDone = [
-                                            person.ordinances?.aaronicPriesthood, person.ordinances?.templeBaptisms,
-                                            person.ordinances?.patriarchalBlessing, person.ordinances?.melchizedekPriesthood, person.ordinances?.endowment,
-                                            person.femaleOrdinances?.templeBaptisms, person.femaleOrdinances?.patriarchalBlessing, person.femaleOrdinances?.endowment
-                                        ].filter(Boolean).length;
-                                        const srDone = Object.values(person.selfRelianceCompleted||{}).filter(Boolean).length;
-                                        return `<div class="flex items-center gap-3 bg-white/10 rounded-xl p-3">
-                                            <div class="text-2xl">✨</div>
-                                            <div class="flex-1">
-                                                <div class="font-black text-white text-sm">${person.name}</div>
-                                                <div class="text-xs text-purple-300 font-semibold">${t('Baptized')} ${parseLocalDate(person.baptismDate).toLocaleDateString('en-US',{month:'short',day:'numeric',year:'numeric'})}</div>
-                                            </div>
-                                            <div class="flex gap-2 text-xs font-bold">
-                                                <span class="bg-amber-400/20 text-amber-300 px-2 py-1 rounded-lg">⭐ ${preActs} ${t('pre-acts')}</span>
-                                                <span class="bg-purple-400/20 text-purple-200 px-2 py-1 rounded-lg">🏛️ ${ordinanceDone} ords</span>
-                                                <span class="bg-blue-400/20 text-blue-200 px-2 py-1 rounded-lg">💼 ${srDone} SR</span>
-                                            </div>
-                                        </div>`;
-                                    }).join('')}
-                                </div>
-                            </div>
-                        </div>`;
-                    })() : ''}
                 </div>`;
         }
 
@@ -3057,7 +3365,9 @@
             }
 
             return `
-                <div class="bg-white/95 backdrop-blur-md rounded-2xl shadow-xl mt-6 overflow-hidden border border-purple-200">
+                <div class="space-y-5">
+                ${imageSlot('covenant', { label: t2('Foto ki he Hala Fuakavá','Photo (top of Covenant Path)') })}
+                <div class="bg-white/95 backdrop-blur-md rounded-2xl shadow-xl overflow-hidden border border-purple-200">
                     <!-- Header -->
                     <div class="bg-gradient-to-r from-purple-700 to-indigo-700 px-5 py-4 flex items-center justify-between">
                         <div class="flex items-center gap-3">
@@ -3073,6 +3383,7 @@
                     </div>
 
                     <div class="p-4 space-y-3">
+                        ${state.covenantPath.length === 0 ? `<div style="text-align:center;padding:30px 16px;color:var(--ss-muted);"><div style="font-size:36px;margin-bottom:8px;">📖</div><p style="font-weight:700;">${t2('Heʻeki ai ha taha ʻi he Hala Fuakavá','No one is on the Covenant Path yet')}</p><p style="font-size:13px;">${t2('ʻOku tānaki fakaʻotomatiki ha taha ʻi he taimi te ke fakaʻilongaʻi ai ʻene papitaisó ʻi he Tracker Māhiná.','People are added here automatically when you mark Baptized (B) for them in the Monthly Tracker.')}</p></div>` : ''}
                         ${active.length > 0 ? `
                             <div class="text-xs font-black text-purple-700 uppercase tracking-wider mb-2">🔄 ${t('In Progress')}</div>
                             ${active.map(renderCard).join('')}
@@ -3083,20 +3394,649 @@
                             ${completed.map(renderCard).join('')}
                         ` : ''}
                     </div>
+                </div>
+
+                    ${state.covenantPath.length > 0 ? (() => {
+                        const cp = state.covenantPath;
+                        const cpTotalActs = cp.reduce((s,p)=>s+Object.values(p.progress||{}).flat().length,0);
+                        const cpBaptized = cp.length;
+                        const cpMale = cp.filter(p=>p.type==='Male').length;
+                        const cpFemale = cp.filter(p=>p.type==='Female').length;
+                        const cpOAY = cp.filter(p=>p.type==='OAY').length;
+                        const cpEndowed = cp.filter(p=>p.ordinances?.endowment||p.femaleOrdinances?.endowment).length;
+                        const cpMelch = cp.filter(p=>p.ordinances?.melchizedekPriesthood).length;
+                        const cpPatriarchal = cp.filter(p=>p.ordinances?.patriarchalBlessing||p.femaleOrdinances?.patriarchalBlessing).length;
+                        const cpTemple = cp.filter(p=>p.ordinances?.templeBaptisms||p.femaleOrdinances?.templeBaptisms).length;
+                        const cpAaronic = cp.filter(p=>p.ordinances?.aaronicPriesthood).length;
+                        const srKeys = ['emotionalResilience','personalFinances','startGrowBusiness','educationBetterWork','findBetterJob'];
+                        const srLabels = ['Emotional Resilience','Personal Finances','Start & Grow Business','Education for Work','Find a Better Job'];
+                        const srCounts = srKeys.map(k=>cp.filter(p=>p.selfRelianceCompleted?.[k]).length);
+                        const totalOrdinances = cpEndowed + cpMelch + cpPatriarchal + cpTemple + cpAaronic;
+                        const maxOrdinances = cp.length * 5;
+                        const ordPct = maxOrdinances > 0 ? Math.round((totalOrdinances/maxOrdinances)*100) : 0;
+
+                        setTimeout(() => {
+                            const ctx5 = document.getElementById('cpTypeDonut');
+                            if (ctx5 && (cpMale+cpFemale+cpOAY) > 0) {
+                                if (ctx5._chartInstance) ctx5._chartInstance.destroy();
+                                ctx5._chartInstance = new Chart(ctx5, {
+                                    type: 'doughnut',
+                                    data: {
+                                        labels: ['Male','Female','OAY'],
+                                        datasets: [{ data: [cpMale,cpFemale,cpOAY], backgroundColor: ['#3b82f6','#ec4899','#8b5cf6'], borderWidth: 3, borderColor: '#fff', hoverOffset: 8 }]
+                                    },
+                                    options: { responsive:true, maintainAspectRatio:false, cutout:'60%', plugins:{ legend:{ position:'right', labels:{ font:{ weight:'bold', size:12 }, padding:10 } } } }
+                                });
+                            }
+                            const ctx6 = document.getElementById('cpSRBar');
+                            if (ctx6) {
+                                if (ctx6._chartInstance) ctx6._chartInstance.destroy();
+                                ctx6._chartInstance = new Chart(ctx6, {
+                                    type: 'bar',
+                                    data: {
+                                        labels: ['Emotional','Finances','Business','Education','Job'],
+                                        datasets: [{ label: 'Completed', data: srCounts, backgroundColor: ['#a855f7','#3b82f6','#10b981','#f59e0b','#ef4444'], borderRadius: 8, borderSkipped: false }]
+                                    },
+                                    options: { responsive:true, maintainAspectRatio:false, plugins:{ legend:{ display:false } }, scales:{ y:{ beginAtZero:true, max: Math.max(cpBaptized,1), ticks:{ stepSize:1, font:{ weight:'bold' } }, grid:{ color:'rgba(0,0,0,0.06)' } }, x:{ grid:{ display:false }, ticks:{ font:{ weight:'700', size:11 } } } } }
+                                });
+                            }
+                        }, 150);
+
+                        return `
+                        <div class="bg-gradient-to-br from-purple-900 via-indigo-900 to-purple-900 rounded-2xl shadow-2xl p-6 hover-lift border-2 border-purple-400/40">
+                            <div class="flex items-center gap-3 mb-6">
+                                <div class="text-4xl">📖</div>
+                                <div>
+                                    <h3 class="font-black text-2xl text-white">${t('Covenant Path Dashboard')}</h3>
+                                    <p class="text-purple-300 text-sm font-semibold">${t('Progress tracking for baptized members')}</p>
+                                </div>
+                            </div>
+
+                            <!-- CP Stat Cards -->
+                            <div class="grid grid-cols-2 md:grid-cols-4 gap-3 mb-5">
+                                <div class="bg-white/10 backdrop-blur rounded-xl p-4 text-center border border-white/20">
+                                    <div class="text-3xl mb-1">✨</div>
+                                    <div class="text-3xl font-black text-white">${cpBaptized}</div>
+                                    <div class="text-xs text-purple-300 font-bold mt-1 uppercase tracking-wide">Baptized</div>
+                                </div>
+                                <div class="bg-white/10 backdrop-blur rounded-xl p-4 text-center border border-white/20">
+                                    <div class="text-3xl mb-1">⭐</div>
+                                    <div class="text-3xl font-black text-white">${cpTotalActs}</div>
+                                    <div class="text-xs text-purple-300 font-bold mt-1 uppercase tracking-wide">Pre-Baptism Acts</div>
+                                </div>
+                                <div class="bg-white/10 backdrop-blur rounded-xl p-4 text-center border border-white/20">
+                                    <div class="text-3xl mb-1">🏛️</div>
+                                    <div class="text-3xl font-black text-white">${cpEndowed}</div>
+                                    <div class="text-xs text-purple-300 font-bold mt-1 uppercase tracking-wide">Endowed</div>
+                                </div>
+                                <div class="bg-white/10 backdrop-blur rounded-xl p-4 text-center border border-white/20">
+                                    <div class="text-3xl mb-1">📜</div>
+                                    <div class="text-3xl font-black text-amber-300">${Math.round((totalOrdinances/Math.max(maxOrdinances,1))*100)}%</div>
+                                    <div class="text-xs text-purple-300 font-bold mt-1 uppercase tracking-wide">Ordinance Rate</div>
+                                </div>
+                            </div>
+
+                            <!-- Charts row -->
+                            <div class="grid md:grid-cols-2 gap-4 mb-5">
+                                <div class="bg-white/10 backdrop-blur rounded-xl p-5 border border-white/20">
+                                    <h4 class="font-black text-white mb-1">👥 ${t('Member Types')}</h4>
+                                    <p class="text-xs text-purple-300 mb-3 font-semibold">${t('Male / Female / OAY breakdown')}</p>
+                                    <div style="height:180px;position:relative;">
+                                        ${(cpMale+cpFemale+cpOAY)>0 ? '<canvas id="cpTypeDonut"></canvas>' : `<div class="flex items-center justify-center h-full text-purple-300 text-sm font-bold">${t('Assign types to members first')}</div>`}
+                                    </div>
+                                </div>
+                                <div class="bg-white/10 backdrop-blur rounded-xl p-5 border border-white/20">
+                                    <h4 class="font-black text-white mb-1">💼 ${t('Self-Reliance Classes')}</h4>
+                                    <p class="text-xs text-purple-300 mb-3 font-semibold">${t('Completed courses across all members')}</p>
+                                    <div style="height:180px;position:relative;">
+                                        <canvas id="cpSRBar"></canvas>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- Ordinance Progress Bars -->
+                            <div class="bg-white/10 backdrop-blur rounded-xl p-5 border border-white/20 mb-4">
+                                <h4 class="font-black text-white mb-4">🏆 ${t('Ordinance Progress')} (${totalOrdinances} / ${maxOrdinances} total)</h4>
+                                <div class="space-y-3">
+                                    ${[
+                                        { label: t('Aaronic Priesthood'), count: cpAaronic, emoji: '✋', color: 'from-blue-400 to-blue-500' },
+                                        { label: t('Temple Baptisms'), count: cpTemple, emoji: '🏛️', color: 'from-indigo-400 to-indigo-500' },
+                                        { label: t('Patriarchal Blessing'), count: cpPatriarchal, emoji: '📜', color: 'from-purple-400 to-purple-500' },
+                                        { label: t('Melchizedek Priesthood'), count: cpMelch, emoji: '👔', color: 'from-pink-400 to-pink-500' },
+                                        { label: t('Temple Endowment'), count: cpEndowed, emoji: '⭐', color: 'from-amber-400 to-amber-500' },
+                                    ].map(ord => {
+                                        const pct = cpBaptized > 0 ? Math.round((ord.count/cpBaptized)*100) : 0;
+                                        return `<div>
+                                            <div class="flex justify-between mb-1">
+                                                <span class="text-sm font-bold text-white">${ord.emoji} ${ord.label}</span>
+                                                <span class="text-sm font-black text-amber-300">${ord.count} / ${cpBaptized}</span>
+                                            </div>
+                                            <div class="bg-white/10 rounded-full h-5 overflow-hidden">
+                                                <div class="bg-gradient-to-r ${ord.color} h-full rounded-full transition-all flex items-center justify-end pr-2" style="width:${pct}%">
+                                                    ${pct > 15 ? `<span class="text-white text-xs font-black">${pct}%</span>` : ''}
+                                                </div>
+                                            </div>
+                                        </div>`;
+                                    }).join('')}
+                                </div>
+                            </div>
+
+                            <!-- Member list with pre-baptism activity count -->
+                            <div class="bg-white/10 backdrop-blur rounded-xl p-5 border border-white/20">
+                                <h4 class="font-black text-white mb-4">📋 ${t('Member Overview')}</h4>
+                                <div class="space-y-3">
+                                    ${cp.map(person => {
+                                        const preActs = Object.values(person.progress||{}).flat().length;
+                                        const ordinanceDone = [
+                                            person.ordinances?.aaronicPriesthood, person.ordinances?.templeBaptisms,
+                                            person.ordinances?.patriarchalBlessing, person.ordinances?.melchizedekPriesthood, person.ordinances?.endowment,
+                                            person.femaleOrdinances?.templeBaptisms, person.femaleOrdinances?.patriarchalBlessing, person.femaleOrdinances?.endowment
+                                        ].filter(Boolean).length;
+                                        const srDone = Object.values(person.selfRelianceCompleted||{}).filter(Boolean).length;
+                                        return `<div class="flex items-center gap-3 bg-white/10 rounded-xl p-3">
+                                            <div class="text-2xl">✨</div>
+                                            <div class="flex-1">
+                                                <div class="font-black text-white text-sm">${person.name}</div>
+                                                <div class="text-xs text-purple-300 font-semibold">${t('Baptized')} ${parseLocalDate(person.baptismDate).toLocaleDateString('en-US',{month:'short',day:'numeric',year:'numeric'})}</div>
+                                            </div>
+                                            <div class="flex gap-2 text-xs font-bold">
+                                                <span class="bg-amber-400/20 text-amber-300 px-2 py-1 rounded-lg">⭐ ${preActs} ${t('pre-acts')}</span>
+                                                <span class="bg-purple-400/20 text-purple-200 px-2 py-1 rounded-lg">🏛️ ${ordinanceDone} ords</span>
+                                                <span class="bg-blue-400/20 text-blue-200 px-2 py-1 rounded-lg">💼 ${srDone} SR</span>
+                                            </div>
+                                        </div>`;
+                                    }).join('')}
+                                </div>
+                            </div>
+                        </div>`;
+                    })() : ''}
                 </div>`;
         }
 
-        window.saveToFirebase = saveToFirebase;
-        render();
-    </script>
-    <script>
-        // Register service worker — required for Android to install a persistent
-        // home-screen app (WebAPK) instead of a shortcut that vanishes.
-        if ('serviceWorker' in navigator) {
-            window.addEventListener('load', () => {
-                navigator.serviceWorker.register('./sw.js').catch(() => {});
+        /* =====================================================================
+           NEW TABS — helpers
+           ===================================================================== */
+        function esc(s){ return String(s==null?'':s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;'); }
+        function mondayOf(d){ const x = new Date(d); const day = (x.getDay()+6)%7; x.setHours(0,0,0,0); x.setDate(x.getDate()-day); return x; }
+        function ymd(d){ return d.getFullYear()+'-'+String(d.getMonth()+1).padStart(2,'0')+'-'+String(d.getDate()).padStart(2,'0'); }
+        function isThisWeek(weekOf){ if(!weekOf) return false; return weekOf === ymd(mondayOf(new Date())); }
+        function fmtWeek(weekOf){
+            if(!weekOf) return '';
+            const start = parseLocalDate(weekOf); const end = new Date(start); end.setDate(end.getDate()+6);
+            const o = {month:'short', day:'numeric'};
+            return start.toLocaleDateString('en-US',o)+' – '+end.toLocaleDateString('en-US',o);
+        }
+
+        /* =====================================================================
+           TAB 6 — 21-DAY PROMISE  (Palōmesi ʻAho ʻe 21)
+           Personal worksheet; progress saved on this device (localStorage).
+           ===================================================================== */
+        const SCRIPTURES = [
+            {to:'1 Nīfai 3:7',en:'1 Nephi 3:7',path:'bofm/1-ne/3.7'},
+            {to:'1 Nīfai 11:1–6',en:'1 Nephi 11:1–6',path:'bofm/1-ne/11.1-6'},
+            {to:'2 Nīfai 2:24–29',en:'2 Nephi 2:24–29',path:'bofm/2-ne/2.24-29'},
+            {to:'2 Nīfai 31:10–15',en:'2 Nephi 31:10–15',path:'bofm/2-ne/31.10-15'},
+            {to:'2 Nīfai 32:7–9',en:'2 Nephi 32:7–9',path:'bofm/2-ne/32.7-9'},
+            {to:'2 Nīfai 33:4–12',en:'2 Nephi 33:4–12',path:'bofm/2-ne/33.4-12'},
+            {to:'ʻInosi 1:1–8',en:'Enos 1:1–8',path:'bofm/enos/1.1-8'},
+            {to:'Alamā 5:13, 33–36, 46',en:'Alma 5:13, 33–36, 46',path:'bofm/alma/5'},
+            {to:'Alamā 17:2–4',en:'Alma 17:2–4',path:'bofm/alma/17.2-4'},
+            {to:'Alamā 34:18–24',en:'Alma 34:18–24',path:'bofm/alma/34.18-24'},
+            {to:'Alamā 37:37–40, 43–45',en:'Alma 37:37–40, 43–45',path:'bofm/alma/37'},
+            {to:'Hilamani 3:27–30, 35',en:'Helaman 3:27–30, 35',path:'bofm/hel/3'},
+            {to:'3 Nīfai 12:2–16',en:'3 Nephi 12:2–16',path:'bofm/3-ne/12.2-16'},
+            {to:'3 Nīfai 13:7–15',en:'3 Nephi 13:7–15',path:'bofm/3-ne/13.7-15'},
+            {to:'3 Nīfai 17:18–25',en:'3 Nephi 17:18–25',path:'bofm/3-ne/17.18-25'},
+            {to:'Molonai 6:1–6',en:'Moroni 6:1–6',path:'bofm/moro/6.1-6'},
+            {to:'Molonai 7:6–9',en:'Moroni 7:6–9',path:'bofm/moro/7.6-9'},
+            {to:'Molonai 7:15–18, 26',en:'Moroni 7:15–18, 26',path:'bofm/moro/7'},
+            {to:'Molonai 7:44–48',en:'Moroni 7:44–48',path:'bofm/moro/7.44-48'},
+            {to:'Molonai 10:3–5',en:'Moroni 10:3–5',path:'bofm/moro/10.3-5'},
+            {to:'3 Nīfai 18:18–21',en:'3 Nephi 18:18–21',path:'bofm/3-ne/18.18-21'}
+        ];
+        const COMMITMENTS = [
+            {to:'Ngāue ʻi ha ngaahi ʻaho siʻi ke teuteuʻi fakalaumālie koe.',en:'Spend a few days preparing yourself spiritually.'},
+            {to:'ʻAukai mo ho fāmilí ʻi he ʻuluaki ʻaho ʻe nimá.',en:'Fast with your family during the first five days.'},
+            {to:'Lau e Tohi ʻa Molomoná he ʻaho kotoa pē.',en:'Read the Book of Mormon every day.'},
+            {to:'Feinga ke talangofua makehe.',en:'Strive for greater obedience.'}
+        ];
+        const COMMIT_INTRO = {
+            to:'Te ke lava ʻo fai mo e ngaahi meʻa ko ʻeni ke fakahā ki he ʻEiki ko Sīsū Kalaisi ʻokú ke maʻu ha tui mālohi kiate ia ʻi hoʻo hoko ko ʻEne tamaioʻeiki/kaungangā:',
+            en:'You can do these things to show the Lord Jesus Christ that you have strong faith in Him as you become His servant and fellow labourer:'
+        };
+        const P_INTRO = {
+            to:'Naʻe fai mai ʻe Elder M. Russell Ballard ʻo e Kōlomu ʻo e Toko Hongofulu Mā Uá mo Elder Robert E. Wells ʻo e Kōlomu ʻUluaki ʻo e Kau Fitungofulú, ha palōmesi makehe ki he kāingalotu kotoa pē ʻo e Siasí. Hiki ha lisi ʻo hotau ngaahi kaungāmeʻa teʻeki Siasi pe ʻoku ʻikai ke nau mālohi ʻi he Siasí, pea lotuaʻi kinautolu ʻi heʻetau lotu pongipongi mo e efiafi. Kapau te tau fai ʻení ʻi ha ʻaho hokohoko ʻe 21, ʻo ʻikai ke hala ha ʻaho, ʻoku talaʻofa mai ʻe he ʻEikí ʻe ʻi ai ha taha — ha hingoa ʻi heʻetau lisí, pe ko ha taha kehe — te ne tali ha fakaafe ke fanongo ki he ngaahi lēsoni ʻa e kau faifekaú ʻi he ʻosi ʻa e ʻaho ʻe 21. ʻOku mau fakaafeʻi kimoutolu ke mou ʻahiʻahiʻi ʻa e talaʻofa ko ʻení, he kuó Ne folofola mai:',
+            en:'Elder M. Russell Ballard of the Quorum of the Twelve and Elder Robert E. Wells of the First Quorum of the Seventy gave a special promise to all members of the Church. Make a list of your not-yet-member or less-active friends, and pray for them by name in your morning and evening prayers. If you do this for 21 consecutive days without missing a single day, the Lord promises that at least one person — a name on your list, or someone else — will accept an invitation to hear the missionary lessons by the end of the 21 days. We invite you to test this promise, for He has declared:'
+        };
+        const P_VREF = {
+            to:'“Ko au, ko e ʻEikí, ʻoku ou haʻisia ʻoka mou ka fai ʻa e meʻa kuó u lea ʻakí.” — Tokāteline mo e Ngaahi Fuakava 82:10',
+            en:'“I, the Lord, am bound when ye do what I say.” — Doctrine & Covenants 82:10'
+        };
+
+        let p21 = {};
+        try { p21 = JSON.parse(localStorage.getItem('f5_p21') || '{}'); } catch(e){ p21 = {}; }
+        function saveP21(){ try { localStorage.setItem('f5_p21', JSON.stringify(p21)); } catch(e){} }
+        let _p21sv;
+        function saveP21Debounced(){ clearTimeout(_p21sv); _p21sv = setTimeout(saveP21, 500); }
+
+        function p21Complete(){ let c=0; for(let i=1;i<=SCRIPTURES.length;i++){ const d=p21['d'+i]||{}; if(d.am&&d.pm&&d.read) c++; } return c; }
+
+        window.p21Check = (n, field, checked) => {
+            p21['d'+n] = p21['d'+n] || {}; p21['d'+n][field] = checked; saveP21();
+            const d = p21['d'+n]; const full = d.am&&d.pm&&d.read;
+            const row = document.querySelector(`.dayrow[data-day="${n}"]`);
+            if(row) row.classList.toggle('full', !!full);
+            const total = SCRIPTURES.length, complete = p21Complete(), pct = Math.round(complete/total*100);
+            const cEl = document.getElementById('p21-count'); if(cEl) cEl.innerHTML = `${complete}<span style="font-size:15px;color:var(--ss-muted)">/${total}</span>`;
+            const bEl = document.getElementById('p21-bar'); if(bEl) bEl.style.width = pct+'%';
+        };
+        window.p21Text = (key, val) => { p21[key] = val; saveP21Debounced(); };
+        window.p21Commit = (i, checked) => { p21['c'+i] = checked; saveP21(); };
+        window.p21Reset = () => {
+            if(!confirm(currentLang==='to' ? 'Kamata foʻou ʻa e palōmesi? ʻE tamateʻi ʻa e fakaʻilonga kotoa.' : 'Reset the promise? This clears all of your check marks.')) return;
+            p21 = {}; saveP21(); render();
+        };
+
+        // Print just the 21-Day Promise worksheet (fills the #printReport area the print CSS reveals)
+        window.printPromise = () => {
+            const box = (on) => on ? '☑' : '☐';
+            const inv = (state.investigators||[]).map(p=>p.name).filter(n=>n&&n.trim());
+            const ret = (state.returning||[]).map(p=>p.name).filter(n=>n&&n.trim());
+            const days = SCRIPTURES.map((s,i)=>{
+                const n=i+1, d=p21['d'+n]||{};
+                return `<tr><td style="text-align:center;font-weight:bold">${n}</td><td>${esc(t2(s.to,s.en))}</td>
+                    <td style="text-align:center">${box(d.am)}</td><td style="text-align:center">${box(d.pm)}</td><td style="text-align:center">${box(d.read)}</td></tr>`;
+            }).join('');
+            const commits = COMMITMENTS.map((c,i)=>`<div>${box(p21['c'+i])} ${esc(t2(c.to,c.en))}</div>`).join('');
+            const ftm = [0,1].map(i=>{const nm=p21['ftm'+i+'n']||'';const ph=p21['ftm'+i+'p']||'';return (nm||ph)?`<div>${esc(nm)} ${ph?'· '+esc(ph):''}</div>`:'';}).join('');
+            const wml = [0,1].map(i=>{const nm=p21['wml'+i+'n']||'';const ph=p21['wml'+i+'p']||'';return (nm||ph)?`<div>${esc(nm)} ${ph?'· '+esc(ph):''}</div>`:'';}).join('');
+            const names = (arr,label)=>arr.length?`<div style="flex:1"><b>${label}</b>${arr.map(n=>`<div>• ${esc(n)}</div>`).join('')}</div>`:`<div style="flex:1"><b>${label}</b><div style="color:#888">—</div></div>`;
+
+            let box2 = document.getElementById('printReport');
+            if (!box2) { box2 = document.createElement('div'); box2.id='printReport'; box2.style.display='none'; document.body.appendChild(box2); }
+            box2.innerHTML = `<style>
+                body{font-family:Georgia,serif;color:#111;padding:26px}
+                h1{font-size:22px;margin:0 0 2px} h2{font-size:13px;color:#9a7b2e;letter-spacing:.12em;text-transform:uppercase;margin:0 0 14px}
+                h3{font-size:15px;margin:18px 0 6px;border-bottom:1px solid #ccc;padding-bottom:3px}
+                .formula{font-size:18px;color:#9a7b2e;margin:8px 0 10px} .verse{font-style:italic;color:#555;margin:8px 0}
+                table{width:100%;border-collapse:collapse;font-size:12px;font-family:Arial,sans-serif} td,th{border:1px solid #bbb;padding:4px 6px}
+                th{background:#f0ece2} .row{display:flex;gap:24px} .commits div{margin:4px 0;font-family:Arial,sans-serif;font-size:13px}
+            </style>
+            <h1>South Jordan 10th Tongan Ward</h1>
+            <h2>${t2('Palōmesi ʻAho ʻe 21','The 21-Day Promise')}</h2>
+            <div class="formula">${t2('TUI','FAITH')} + ${t2('LOTU','PRAYER')} + ${t2('NGĀUE','ACTION')} = ${t2('MANA','MIRACLES')}</div>
+            <div class="verse">${esc(t2(P_VREF.to,P_VREF.en))}</div>
+            <h3>${t2('Kakai Te ke Lotuá','People I Will Pray For')}</h3>
+            <div class="row">${names(inv, t('Investigators'))}${names(ret, t('Returning'))}</div>
+            <h3>${t2('ʻAho ʻe 21','The 21 Days')}</h3>
+            <table><tr><th>#</th><th>${t('Book of Mormon')}</th><th>${t('AM')}</th><th>${t('PM')}</th><th>${t('Read')}</th></tr>${days}</table>
+            <h3>${t2('Ngaahi Tukupaa','Commitments')}</h3><div class="commits">${commits}</div>
+            ${(ftm.trim())?`<h3>${t2('Ongo Faifekau Taimi Kakató','Full-Time Missionaries')}</h3>${ftm}`:''}
+            ${(wml.trim())?`<h3>${t2('Taki Faifekau Fakauōtí','Ward Mission Leaders')}</h3>${wml}`:''}`;
+            window.print();
+            setTimeout(()=>{ box2.innerHTML=''; }, 500);
+        };
+
+        // Share a link to the app (lands on the 21-Day Promise tab)
+        window.sharePromise = async () => {
+            const url = location.origin + location.pathname + '#promise';
+            const data = {
+                title: 'South Jordan 10th — ' + t2('Palōmesi ʻAho ʻe 21','21-Day Promise'),
+                text: t2('Fai mo au ʻa e Palōmesi ʻAho ʻe 21 — lotu pongipongi mo efiafi ki he ngaahi faingamālie fakafaifekau.','Take the 21-Day Promise with me — pray morning and evening for missionary opportunities.'),
+                url
+            };
+            try { if (navigator.share) { await navigator.share(data); return; } } catch(e){ if (e && e.name === 'AbortError') return; }
+            try { await navigator.clipboard.writeText(url); showSaveMessage(t2('🔗 Kuo hiki ʻa e liní','🔗 Link copied!')); }
+            catch(e){ prompt(t2('Hiki ʻa e liní:','Copy this link:'), url); }
+        };
+
+        // Participant roster — who is doing the 21-Day Promise, start/complete dates (synced via Firebase for KPI tracking)
+        window.promiseAddPerson = () => {
+            const id = 'p21p_' + Date.now() + '_' + Math.random().toString(36).slice(2,7);
+            state.promisePeople = state.promisePeople || [];
+            state.promisePeople.unshift({ id, name:'', startDate: ymd(new Date()), completeDate:'' });
+            saveToFirebase(); render();
+        };
+        window.promiseUpdatePerson = (id, field, val) => {
+            const p = (state.promisePeople||[]).find(x=>x.id===id); if(!p) return;
+            p[field] = val;
+            if (field !== 'name') { saveToFirebase(); render(); } else { saveToFirebaseDebounced(); }
+        };
+        window.promiseRemovePerson = (id) => {
+            if(!confirm(currentLang==='to' ? 'Tāmateʻi ʻa e fakamatalá ni?' : 'Remove this person?')) return;
+            state.promisePeople = (state.promisePeople||[]).filter(x=>x.id!==id);
+            saveToFirebase(); render();
+        };
+
+        function renderPromise(){
+            const lng = currentLang==='to' ? 'ton' : 'eng';
+            const invNames = (state.investigators||[]).map(p=>p.name).filter(n=>n&&n.trim());
+            const retNames = (state.returning||[]).map(p=>p.name).filter(n=>n&&n.trim());
+            const prayGroup = (title, names, dot) => `
+                <div>
+                    <div class="praygroup-title">${title} <span class="n">${names.length}</span></div>
+                    ${names.length
+                        ? names.map(n=>`<div class="prayname"><span class="dot" style="background:${dot};"></span>${esc(n)}</div>`).join('')
+                        : `<div class="praynote">${t2('Tānaki kakai ʻi he Tracker Māhiná','Add people in the Monthly Tracker')}</div>`}
+                </div>`;
+            const pray = prayGroup('👤 '+t('Investigators'), invNames, 'var(--ss-gold)') + prayGroup('💙 '+t('Returning'), retNames, 'var(--ss-violet)');
+            const days = SCRIPTURES.map((s,i)=>{
+                const n=i+1, d=p21['d'+n]||{}, full=d.am&&d.pm&&d.read;
+                return `<div class="dayrow${full?' full':''}" data-day="${n}">
+                    <div class="daynum">${n}</div>
+                    <div class="daymain">
+                        <div class="scrip"><a href="https://www.churchofjesuschrist.org/study/scriptures/${s.path}?lang=${lng}" target="_blank" rel="noopener">${esc(t2(s.to,s.en))}</a><div class="sub">${t('Book of Mormon')}</div></div>
+                        <div class="checks">
+                            <label class="chk"><input type="checkbox" data-free onchange="p21Check(${n},'am',this.checked)" ${d.am?'checked':''}>${t('AM')}</label>
+                            <label class="chk"><input type="checkbox" data-free onchange="p21Check(${n},'pm',this.checked)" ${d.pm?'checked':''}>${t('PM')}</label>
+                            <label class="chk read"><input type="checkbox" data-free onchange="p21Check(${n},'read',this.checked)" ${d.read?'checked':''}>${t('Read')}</label>
+                        </div>
+                    </div></div>`;
+            }).join('');
+            const commits = COMMITMENTS.map((c,i)=>
+                `<label class="commit"><input type="checkbox" data-free onchange="p21Commit(${i},this.checked)" ${p21['c'+i]?'checked':''}><span class="txt">${esc(t2(c.to,c.en))}<span class="en">${esc(t2(c.en,c.to))}</span></span></label>`
+            ).join('');
+            const ftm = [0,1].map(i=>`<div class="contact"><input class="ss-input" data-free oninput="p21Text('ftm${i}n',this.value)" value="${esc(p21['ftm'+i+'n']||'')}" placeholder="${t('Full-time missionary')}"><input class="ss-input" data-free oninput="p21Text('ftm${i}p',this.value)" value="${esc(p21['ftm'+i+'p']||'')}" placeholder="${t('Phone')}"></div>`).join('');
+            const wml = [0,1].map(i=>`<div class="contact"><input class="ss-input" data-free oninput="p21Text('wml${i}n',this.value)" value="${esc(p21['wml'+i+'n']||'')}" placeholder="${t('Ward mission leader')}"><input class="ss-input" data-free oninput="p21Text('wml${i}p',this.value)" value="${esc(p21['wml'+i+'p']||'')}" placeholder="${t('Phone')}"></div>`).join('');
+            const total = SCRIPTURES.length, complete = p21Complete(), pct = Math.round(complete/total*100);
+
+            return `<div class="ss-panel">
+                <div class="mb-4"><div class="ss-eyebrow">${t2('Ngāue Fakafaifekau','Member Missionary Work')}</div><h2 class="ss-h2">${t2('Palōmesi ʻAho ʻe 21','The 21-Day Promise')}</h2></div>
+                ${imageSlot('promise', { label: t2('Foto','Photo') })}
+                <div class="promise-progress">
+                    <div class="big" id="p21-count">${complete}<span style="font-size:15px;color:var(--ss-muted)">/${total}</span></div>
+                    <div style="flex:1"><div class="lbl">${t2('ʻAho kakato (Pongipongi · Efiafi · Lau)','Days completed (AM · PM · Read)')}</div>
+                        <div class="pbar"><i id="p21-bar" style="width:${pct}%"></i></div></div>
+                </div>
+
+                <div class="ss-blockhead"><h3>${t2('Kau Kakai ʻi he Palōmesí','Who\'s Taking the Promise')}</h3><span class="en">${t2('Kamata mo Fakaʻosi ʻAho','Track start & complete dates')}</span></div>
+                <div class="ss-panel" style="padding:14px;margin-bottom:18px;">
+                    <div style="display:flex;justify-content:flex-end;margin-bottom:10px;">
+                        <button class="ss-btn primary" onclick="promiseAddPerson()">＋ ${t2('Tānaki Kakai','Add Person')}</button>
+                    </div>
+                    ${(state.promisePeople||[]).length === 0 ? `<div style="text-align:center;padding:18px;color:var(--ss-muted);font-size:13px;">${t2('Heʻeki ai ha taha ʻoku kau','No one is tracked yet — tap Add Person.')}</div>` : `
+                    <div style="display:flex;flex-direction:column;gap:8px;">
+                        ${state.promisePeople.map(p => `
+                        <div style="display:grid;grid-template-columns:1.4fr 1fr 1fr auto;gap:8px;align-items:center;background:var(--ss-surface-2);border:1px solid var(--ss-line-2);border-radius:11px;padding:8px 10px;">
+                            <input class="ss-input" value="${esc(p.name||'')}" oninput="promiseUpdatePerson('${p.id}','name',this.value)" placeholder="${t2('Hingoa','Name')}">
+                            <div>
+                                <div style="font-size:10px;font-weight:700;color:var(--ss-muted);text-transform:uppercase;margin-bottom:2px;">${t2('Kamata','Started')}</div>
+                                <input class="ss-input" type="date" value="${p.startDate||''}" onchange="promiseUpdatePerson('${p.id}','startDate',this.value)">
+                            </div>
+                            <div>
+                                <div style="font-size:10px;font-weight:700;color:var(--ss-muted);text-transform:uppercase;margin-bottom:2px;">${t2('Kakato','Completed')}</div>
+                                <input class="ss-input" type="date" value="${p.completeDate||''}" onchange="promiseUpdatePerson('${p.id}','completeDate',this.value)">
+                            </div>
+                            <button onclick="promiseRemovePerson('${p.id}')" style="background:none;border:0;color:var(--ss-muted);cursor:pointer;font-size:16px;">🗑️</button>
+                        </div>`).join('')}
+                    </div>`}
+                </div>
+
+                <div class="ss-blockhead"><h3>${t2('Lisi ʻo e Kakai Te ke Lotuá','People I Will Pray For')}</h3><span class="en">${t2('Mei he Tracker Māhiná — Muimui & Foki Mai','Auto-filled from the Monthly Tracker')}</span></div>
+                <div class="prayfor two">${pray}</div>
+
+                <div class="ss-blockhead"><h3>${t2('ʻAho ʻe 21','The 21 Days')}</h3><span class="en">${t2('Fakaʻilongaʻi ʻa e lotú mo e lau folofolá','Check each prayer & reading')}</span></div>
+                <div class="daygrid">${days}</div>
+
+                <div class="ss-blockhead"><h3>${t2('Ngaahi Tukupaa','Commitments')}</h3></div>
+                <p style="font-size:14px;color:var(--ss-ink-soft);margin:0 0 12px;max-width:66ch;line-height:1.55;">${esc(t2(COMMIT_INTRO.to,COMMIT_INTRO.en))}</p>
+                <div>${commits}</div>
+
+                <div class="ss-blockhead"><h3>${t2('Hoʻo Ongo Faifekau Taimi Kakató','Your Full-Time Missionaries')}</h3></div>
+                <div class="contacts">${ftm}</div>
+                <div class="ss-blockhead"><h3>${t2('Hoʻo Taki Faifekau Fakauōtí','Your Ward Mission Leaders')}</h3></div>
+                <div class="contacts">${wml}</div>
+
+                <div class="flex flex-wrap gap-3 mt-6">
+                    <button class="ss-btn primary" onclick="printPromise()">🖨️ ${t2('Pulusi / PDF','Print / Save as PDF')}</button>
+                    <button class="ss-btn ghost" onclick="sharePromise()">🔗 ${t2('Vahevahe ʻa e liní','Share link')}</button>
+                    <button class="ss-btn ghost" onclick="p21Reset()">↺ ${t2('Kamata foʻou','Reset')}</button>
+                </div>
+                <p style="font-size:12px;color:var(--ss-muted);margin-top:12px;">${t2('ʻOku tauhi ʻa e fakaʻiló ʻi he tēvaisí ni — ko e palōmesi fakafoʻituituí.','Your progress is saved on this device — this is a personal worksheet.')}</p>
+            </div>`;
+        }
+
+        /* =====================================================================
+           TAB 7 — BOOK OF MORMON CHALLENGE  (Pō Tohi ʻa Molomona)
+           "Pass the Light" — track who took a copy to give away this week.
+           Synced to Firebase so the quorum sees the chain grow.
+           ===================================================================== */
+        const BOM_STATUS = {
+            pledged:  {to:'Naʻe Toʻo',   en:'Pledged',        emoji:'🕯️', color:'var(--ss-gold)',    wash:'var(--ss-gold-wash)'},
+            given:    {to:'Foaki Atu',   en:'Given Away',     emoji:'🤝', color:'var(--ss-sage)',    wash:'var(--ss-sage-wash)'},
+            reading:  {to:'Lau Lolotonga',en:"They're Reading",emoji:'📖', color:'var(--ss-violet)',  wash:'var(--ss-violet-wash)'},
+            referred: {to:'ʻAve ki Faifekau',en:'Referred',   emoji:'✨', color:'var(--ss-red)',     wash:'var(--ss-red-wash)'}
+        };
+        const BOM_ORDER = ['pledged','given','reading','referred'];
+        const BOM_ORGS = [
+            {k:'eq', to:'Kōlomu ʻo e Kau Tangata Mā', en:'Elders Quorum'},
+            {k:'rs', to:'Sōsaieti Tokoni', en:'Relief Society'},
+            {k:'ym', to:'Kau Talavou Tangata', en:'Young Men'},
+            {k:'yw', to:'Kau Talavou Fefine', en:'Young Women'},
+            {k:'ysa', to:'Talavou Nofo Taha', en:'YSA'},
+            {k:'primary', to:'Palaimelí', en:'Primary'},
+            {k:'ss', to:'Lautohi Sāpaté', en:'Sunday School'},
+            {k:'ftm', to:'Faifekau Taimi Kakato', en:'Full-Time Missionaries'},
+            {k:'wml', to:'Taki Faifekau Fakauōti', en:'Ward Mission Leader'}
+        ];
+        const bomOrgLabel = (k) => { const o = BOM_ORGS.find(x=>x.k===k); return o ? t2(o.to,o.en) : ''; };
+
+        window.bomAdd = () => {
+            const id = 'bom_' + Date.now() + '_' + Math.random().toString(36).slice(2,7);
+            state.bomChallenge = state.bomChallenge || [];
+            state.bomChallenge.unshift({ id, member:'', org:'', status:'pledged', invited:false, invitedResult:'', weekOf: ymd(mondayOf(new Date())), date: ymd(new Date()) });
+            saveToFirebase(); render();
+        };
+        window.bomUpdate = (id, field, val) => {
+            const c = (state.bomChallenge||[]).find(x=>x.id===id); if(!c) return;
+            c[field] = val; saveToFirebaseDebounced();
+        };
+        window.bomToggleInvited = (id) => {
+            const c = (state.bomChallenge||[]).find(x=>x.id===id); if(!c) return;
+            c.invited = !c.invited;
+            if (!c.invited) c.invitedResult = '';
+            saveToFirebase(); render();
+        };
+        window.bomSetInviteResult = (id, result) => {
+            const c = (state.bomChallenge||[]).find(x=>x.id===id); if(!c) return;
+            c.invited = true;
+            c.invitedResult = (c.invitedResult === result) ? '' : result;
+            saveToFirebase(); render();
+        };
+        window.bomCycle = (id) => {
+            const c = (state.bomChallenge||[]).find(x=>x.id===id); if(!c) return;
+            const i = BOM_ORDER.indexOf(c.status||'pledged');
+            c.status = BOM_ORDER[(i+1) % BOM_ORDER.length];
+            saveToFirebase(); render();
+        };
+        window.bomDelete = (id) => {
+            if(!confirm(currentLang==='to' ? 'Tāmateʻi ʻa e fakamatalá ni?' : 'Remove this entry?')) return;
+            state.bomChallenge = (state.bomChallenge||[]).filter(x=>x.id!==id);
+            saveToFirebase(); render();
+        };
+        let _bomsv;
+        function saveToFirebaseDebounced(){ clearTimeout(_bomsv); _bomsv = setTimeout(saveToFirebase, 700); }
+
+        function renderBomChallenge(){
+            const list = (state.bomChallenge||[]);
+            const thisWeek = list.filter(c=>isThisWeek(c.weekOf));
+            const givenAll = list.filter(c=>c.status==='given'||c.status==='reading'||c.status==='referred').length;
+            const referredAll = list.filter(c=>c.status==='referred').length;
+            const invitedAll = list.filter(c=>c.invited).length;
+            const acceptedAll = list.filter(c=>c.invitedResult==='accepted').length;
+            const rejectedAll = list.filter(c=>c.invitedResult==='rejected').length;
+            const acceptRate = invitedAll > 0 ? Math.round((acceptedAll/invitedAll)*100) : 0;
+
+            const card = (c)=>{
+                const st = BOM_STATUS[c.status||'pledged'] || BOM_STATUS.pledged;
+                const opts = `<option value="">${t('Organization to follow up…')}</option>` +
+                    BOM_ORGS.map(o=>`<option value="${o.k}" ${c.org===o.k?'selected':''}>${esc(t2(o.to,o.en))}</option>`).join('');
+                return `<div class="bom-card">
+                    <div class="bom-top">
+                        <span class="flame">${st.emoji}</span>
+                        <input class="ss-input" style="font-weight:700;" value="${esc(c.member||'')}" oninput="bomUpdate('${c.id}','member',this.value)" placeholder="${t('Name of the person')}">
+                        <button class="bom-status" style="color:${st.color};background:${st.wash};" onclick="bomCycle('${c.id}')" title="${t('Tap to advance')}">${st.emoji} ${t2(st.to,st.en)}</button>
+                    </div>
+                    <select class="ss-input" onchange="bomUpdate('${c.id}','org',this.value); render();">${opts}</select>
+                    <div style="display:flex;align-items:center;gap:8px;flex-wrap:wrap;padding:8px 0 2px;border-top:1px dashed var(--ss-line-2);margin-top:4px;">
+                        <label style="display:flex;align-items:center;gap:6px;font-size:12px;font-weight:700;color:var(--ss-ink-soft);cursor:pointer;">
+                            <input type="checkbox" data-free ${c.invited?'checked':''} onchange="bomToggleInvited('${c.id}')"> ${t2('Naʻe Fakaʻaʻaa','Invitation given')}
+                        </label>
+                        ${c.invited ? `
+                        <button onclick="bomSetInviteResult('${c.id}','accepted')" style="font-size:11.5px;font-weight:700;padding:3px 9px;border-radius:999px;border:1px solid var(--ss-line-2);cursor:pointer;${c.invitedResult==='accepted'?'background:var(--ss-sage-wash);color:var(--ss-sage);border-color:var(--ss-sage);':'background:var(--ss-surface);color:var(--ss-ink-soft);'}">✅ ${t2('Naʻe Tali','Accepted')}</button>
+                        <button onclick="bomSetInviteResult('${c.id}','rejected')" style="font-size:11.5px;font-weight:700;padding:3px 9px;border-radius:999px;border:1px solid var(--ss-line-2);cursor:pointer;${c.invitedResult==='rejected'?'background:var(--ss-red-wash);color:var(--ss-red);border-color:var(--ss-red);':'background:var(--ss-surface);color:var(--ss-ink-soft);'}">🚫 ${t2('Naʻe Taliteʻi','Rejected')}</button>` : ''}
+                    </div>
+                    <div class="flex items-center justify-between" style="font-size:11.5px;color:var(--ss-muted);">
+                        <span>${t('Week of')} ${fmtWeek(c.weekOf)}${c.org?' · 🏛️ '+esc(bomOrgLabel(c.org)):''}</span>
+                        <button onclick="bomDelete('${c.id}')" style="background:none;border:0;color:var(--ss-muted);cursor:pointer;font-size:12px;">${t('Remove')}</button>
+                    </div>
+                </div>`;
+            };
+
+            const section = (title, en, arr) => arr.length ? `
+                <div class="ss-blockhead"><h3>${title}</h3><span class="en">${en} · ${arr.length}</span></div>
+                <div class="bom-grid">${arr.map(card).join('')}</div>` : '';
+
+            const olderWeeks = list.filter(c=>!isThisWeek(c.weekOf));
+
+            return `<div class="ss-panel">
+                ${imageSlot('bom', { label: t2('Foto ki he Pole Tohi ʻa Molomoná','Photo (top of B.O.M. Challenge)') })}
+                <div class="flex items-start justify-between flex-wrap gap-3 mb-4">
+                    <div><div class="ss-eyebrow">${t2('Pō Tohi ʻa Molomona','Pass the Light')}</div><h2 class="ss-h2">${t2('Pole Tohi ʻa Molomona','Book of Mormon Challenge')}</h2></div>
+                    <button class="ss-btn primary" onclick="bomAdd()">＋ ${t('Take the challenge')}</button>
+                </div>
+                <p style="font-size:14px;color:var(--ss-ink-soft);max-width:64ch;line-height:1.6;margin:0 0 18px;">
+                    ${t2('Ko e taha taki taha ʻe toʻo ha tohi ʻe taha he uike ní, tohi honau fakamoʻoní ʻi loto, pea foaki ki ha taha. Tau vakai ki he maama ʻoku tupu!','Each week, one by one, take a copy, write your testimony inside, and give it to someone. Watch the light spread.')}
+                </p>
+
+                <div class="bom-hero">
+                    <div class="bom-stat"><div class="num">${thisWeek.length}</div><div class="lbl">${t('Pledged this week')}</div></div>
+                    <div class="bom-stat"><div class="num">${givenAll}</div><div class="lbl">${t('Copies given away')}</div></div>
+                    <div class="bom-stat"><div class="num">${referredAll}</div><div class="lbl">${t('Referred to missionaries')}</div></div>
+                </div>
+
+                <div class="bom-hero">
+                    <div class="bom-stat"><div class="num">${invitedAll}</div><div class="lbl">${t2('Naʻe Fakaʻaʻaa','Invitations Given')}</div></div>
+                    <div class="bom-stat"><div class="num" style="color:var(--ss-sage);">${acceptedAll}</div><div class="lbl">${t2('Naʻe Tali','Accepted')}</div></div>
+                    <div class="bom-stat"><div class="num" style="color:var(--ss-red);">${rejectedAll}</div><div class="lbl">${t2('Naʻe Taliteʻi','Rejected')}</div></div>
+                    <div class="bom-stat"><div class="num">${acceptRate}%</div><div class="lbl">${t2('Tuʻunga Tali','Acceptance Rate')}</div></div>
+                </div>
+
+                <div style="border-left:3px solid var(--ss-gold);background:var(--ss-gold-wash);border-radius:0 12px 12px 0;padding:14px 18px;margin:0 0 20px;">
+                    <p style="font-family:'Fraunces',Georgia,serif;font-style:italic;font-size:15px;color:var(--ss-ink);line-height:1.6;margin:0;">
+                        “${t2('Naʻa mo kinautolu ʻoku nau taliteʻi koe, ʻe ʻi ai ha ʻaho te nau fakafetaʻi atu kiate koe.','Even those who reject you, will someday thank you.')}”
+                    </p>
+                    <p style="font-size:12.5px;font-weight:700;color:var(--ss-gold-deep);margin:6px 0 0;">— ${t2('Eta Henry B. Eyring','Elder Henry B. Eyring')}</p>
+                </div>
+
+                ${section(t2('ʻO e Uike Ní','This Week'), t2('Toʻo ʻi he uike ní','Taken this week'), thisWeek)}
+                ${list.length===0 ? `<div style="text-align:center;padding:40px 16px;color:var(--ss-muted);">
+                    <div style="font-size:40px;margin-bottom:10px;">🕯️</div>
+                    <p style="font-weight:700;color:var(--ss-ink-soft);">${t('No one has taken the challenge yet.')}</p>
+                    <p style="font-size:13px;">${t('Tap "Take the challenge" to light the first candle.')}</p>
+                </div>` : ''}
+                ${section(t2('Ngaahi Uike Kuo Hilí','Earlier Weeks'), t2('Maama kuo tutu','Lights already lit'), olderWeeks)}
+            </div>`;
+        }
+
+        /* =====================================================================
+           IMAGE SLOTS — uploadable photos, compressed client-side, synced via Firebase
+           ===================================================================== */
+        function imageSlot(key, opts){
+            opts = opts || {};
+            const v = opts.variant === 'side' ? 'side ' : '';
+            const url = (state.images || {})[key];
+            // View-only: show the photo with no controls; show nothing if there's no photo yet.
+            if (!editMode){
+                return url ? `<div class="imgslot ${v}"><img src="${url}" alt="${esc(opts.label || '')}"></div>` : '';
+            }
+            if (url){
+                return `<div class="imgslot ${v}">
+                    <img src="${url}" alt="${esc(opts.label || '')}">
+                    <div class="imgslot-tools">
+                        <label class="imgbtn" title="${t('Change image')}">🔄<input type="file" accept="image/*" class="hidden" data-free onchange="uploadImage('${key}', event)"></label>
+                        <button class="imgbtn" title="${t('Remove image')}" onclick="removeImage('${key}')">🗑️</button>
+                    </div>
+                </div>`;
+            }
+            return `<label class="imgslot ${v}empty">
+                <input type="file" accept="image/*" class="hidden" data-free onchange="uploadImage('${key}', event)">
+                <span class="imgslot-ico">🖼️</span>
+                <span class="imgslot-label">${esc(opts.label || t('Add a photo'))}</span>
+                <span class="imgslot-hint">${t('Tap to upload · shared with everyone')}</span>
+            </label>`;
+        }
+
+        function compressImage(file, maxDim, quality){
+            return new Promise((resolve, reject) => {
+                const reader = new FileReader();
+                reader.onload = e => {
+                    const img = new Image();
+                    img.onload = () => {
+                        let w = img.width, h = img.height;
+                        if (w >= h && w > maxDim){ h = Math.round(h * maxDim / w); w = maxDim; }
+                        else if (h > w && h > maxDim){ w = Math.round(w * maxDim / h); h = maxDim; }
+                        else if (w === h && w > maxDim){ w = h = maxDim; }
+                        const c = document.createElement('canvas'); c.width = w; c.height = h;
+                        c.getContext('2d').drawImage(img, 0, 0, w, h);
+                        resolve(c.toDataURL('image/jpeg', quality));
+                    };
+                    img.onerror = reject; img.src = e.target.result;
+                };
+                reader.onerror = reject; reader.readAsDataURL(file);
             });
         }
+
+        window.uploadImage = async (key, ev) => {
+            const file = ev.target.files && ev.target.files[0];
+            if (!file) return;
+            if (!file.type.startsWith('image/')){ alert(t('Please choose an image file.')); return; }
+            // Compress first so both Storage uploads and any inline fallback stay small
+            let dataUrl;
+            try {
+                dataUrl = await compressImage(file, 1280, 0.72);
+                if (dataUrl.length > 900000) dataUrl = await compressImage(file, 1100, 0.62);
+                if (dataUrl.length > 900000) dataUrl = await compressImage(file, 900, 0.55);
+            } catch(e){ alert(t('Sorry — that image could not be processed.')); return; }
+
+            state.images = state.images || {};
+            // Preferred path: upload to Firebase Storage and keep only the URL in the database (tiny payload)
+            if (storage) {
+                try {
+                    const sref = storageRef(storage, 'images/' + key + '.jpg');
+                    await uploadString(sref, dataUrl, 'data_url');
+                    state.images[key] = await getDownloadURL(sref);
+                    saveToFirebase(); render();
+                    return;
+                } catch(e){ console.warn('Storage upload unavailable — saving image inline instead.', e && e.message ? e.message : e); }
+            }
+            // Fallback: store the compressed image inline in the database (works without Storage setup)
+            state.images[key] = dataUrl;
+            saveToFirebase(); render();
+        };
+        window.removeImage = async (key) => {
+            if (!confirm(t('Remove this image?'))) return;
+            const val = state.images && state.images[key];
+            // If it lives in Storage, delete the object too (ignore failures)
+            if (storage && typeof val === 'string' && /firebasestorage|googleapis|appspot/.test(val)) {
+                try { await deleteObject(storageRef(storage, 'images/' + key + '.jpg')); } catch(e){ /* already gone or blocked */ }
+            }
+            if (state.images) delete state.images[key];
+            saveToFirebase(); render();
+        };
+
+        window.saveToFirebase = saveToFirebase;
+
+        // Deep-link routing: a shared link like …/#promise opens that tab.
+        const HASH_VIEWS = { tracker:'tracker', thisweek:'thisweek', actionboard:'actionboard', charts:'charts', kpi:'charts', events:'events', calendar:'events', promise:'promise', '21day':'promise', bom:'bomchallenge', bomchallenge:'bomchallenge', covenant:'covenant', covenantpath:'covenant' };
+        function applyHashView(){
+            const h = (location.hash || '').replace('#','').toLowerCase();
+            if (HASH_VIEWS[h]) state.viewMode = HASH_VIEWS[h];
+        }
+        applyHashView();
+        window.addEventListener('hashchange', () => { const before = state.viewMode; applyHashView(); if (state.viewMode !== before) render(); });
+
+        render();
     </script>
 </body>
 </html>
